@@ -1,0 +1,30 @@
+/* main.css
+   Базовые переменные и подключение к стилям из /css (если хочешь использовать import, можно раскомментировать)
+*/
+
+/* Пример корневых переменных */
+:root{
+  --base-bg: #fff;
+  --text: #111;
+  --accent: #b45309; /* ember-like */
+  --max-width: 1000px;
+}
+
+/* Базовая разметка */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
+body{
+  background:var(--base-bg);
+  color:var(--text);
+  padding:1rem;
+  display:flex;
+  justify-content:center;
+}
+main{max-width:var(--max-width);width:100%}
+
+/* Подключения (опционально) - можно подключать файлы из /css в build-процессе */
+/* @import "css/typography.css";
+   @import "css/layout.css";
+   @import "css/forms.css";
+   @import "css/buttons.css";
+*/

@@ -1,0 +1,4 @@
+/* buttons.css */
+/* Стандартные классы для кнопок */
+button{background:var(--accent);color:white}
+button.secondary{background:#666}

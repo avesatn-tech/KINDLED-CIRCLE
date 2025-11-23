@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Embers — Guides</title>
+
+  <!-- Базовый CSS (main.css) -->
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <h1>Embers</h1>
+    <p>Гайды в ролевом стиле — Ask the Ancient Dragon</p>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <ul>
+      <li><a href="#">Discord — Kindle Circle</a></li>
+      <li><a href="/guides">Guides</a></li>
+      <li><a href="mailto:contact@embers.example">Email</a></li>
+    </ul>
+  </nav>
+
+  <!-- ASK FORM -->
+  <main>
+    <section id="ask">
+      <h2>Ask the Ancient</h2>
+      <form action="/ask" method="post" novalidate>
+        <label for="persona">Персонаж</label>
+        <select id="persona" name="persona">
+          <option value="ancient_dragon">Ancient Dragon</option>
+          <option value="old_knight">Old Knight</option>
+          <option value="mystic_seer">Mystic Seer</option>
+        </select>
+
+        <label for="question">Вопрос</label>
+        <textarea id="question" name="question" rows="6" cols="60" required></textarea>
+
+        <button type="submit">Ask</button>
+      </form>
+    </section>
+
+    <section id="answer">
+      <!-- Ответы от API будут выводиться сюда (через сервер или клиентский JS) -->
+    </section>
+  </main>
+
+  <!-- Подложка: подключаем главный JS (main.js) -->
+  <script src="main.js" defer></script>
+</body>
+</html>
