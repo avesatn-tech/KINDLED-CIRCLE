@@ -1,7 +1,6 @@
 // js/ui.js
 import { qs, escapeHtml } from "./helpers.js";
 
-/* ---------- Ember particles ---------- */
 export function createEmbers(count = 12) {
   const container = document.createElement("div");
   container.className = "ember-layer";
@@ -114,4 +113,5 @@ function mockAnswer(persona, question) {
   };
   return (base[p] || base.ancient_dragon) + "\n\n(This is a frontend mock response.)";
 }
+
 
