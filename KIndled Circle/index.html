@@ -16,13 +16,12 @@
   <div class="container">
 
     <!--
-      SIGWARD FLOATING — placed BEFORE the header in DOM order visually,
-      but as it is absolutely positioned relative to .container it will
-      sit visually on top-right corner of the header.
-      NOTE: image file must be at img/sigward.png (transparent background).
+      SIGWARD FLOATING — placed BEFORE the header in DOM for stable positioning.
+      NOTE: using session-local preview file path. In production replace with img/sigward.png
+      e.g. src="img/sigward.png"
     -->
     <div class="sigward-floating" aria-hidden="true">
-      <img class="sigward-floating-img bob" src="img/sigward.png" alt="Sigward decorative">
+      <img class="sigward-floating-img bob" src="/mnt/data/sigward.png" alt="Sigward decorative">
     </div>
 
     <!-- HERO -->
