@@ -151,7 +151,7 @@ main {
 /* mobile version */
 @media (max-width: 720px) {
   .sigward-floating {
-    top: -28px;
+    top: -15px;
     right: 10px;
   }
 
@@ -168,4 +168,5 @@ main {
     align-items: flex-start;
   }
 }
+
 
