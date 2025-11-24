@@ -1,9 +1,9 @@
 /* css/layout.css — full replacement
-   Header, persona cards, sigward-floating above header, responsive behavior.
-   Images must be in root img/ (img/sigward.png, img/ember.png, etc.).
+   Header, persona cards, sigward-floating above header (fixed small size), responsive behavior.
+   Images expected in root: img/*.png (sigward currently using session preview path).
 */
 
-/* ---- root sizing vars (keep synced with main.css) ---- */
+/* ---- root sizing vars ---- */
 :root{
   --h-pad: clamp(12px, 2.2vw, 22px);
   --h-gap: clamp(12px, 2.4vw, 28px);
@@ -31,10 +31,12 @@ main{
   overflow:hidden;
 }
 
-/* subtle grain overlay — optional: requires img/grain.png */
+/* optional subtle grain overlay (requires img/grain.png) */
 main::after{
   content:"";
-  position:absolute; inset:0; pointer-events:none;
+  position:absolute;
+  inset:0;
+  pointer-events:none;
   background-image: url('img/grain.png');
   background-size:cover;
   opacity:0.03;
@@ -87,7 +89,7 @@ main::after{
 .hero-lead{margin:0 0 .45rem 0;color:var(--muted, #9aa0a6);max-width:60ch;font-size:var(--lead-size)}
 .hero-cta{display:flex;gap:.6rem;align-items:center}
 
-/* ---- EMBLEM (kept subtle) ---- */
+/* ---- EMBLEM (subtle) ---- */
 .hero-logo-wrap{
   width: var(--emblem-wrap);
   height: var(--emblem-wrap);
@@ -119,22 +121,23 @@ main::after{
 #messages{max-height:420px;overflow:auto;padding:.25rem}
 #chat-input{resize:vertical;min-height:56px;padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text, #e8eef2)}
 
-/* ==== SIGWARD FLOATING (outside header) ==== */
-/* .sigward-floating is placed BEFORE the header in DOM and absolutely positioned relative to .container */
+/* ==== SIGWARD FLOATING (fixed size, cannot grow) ==== */
+/* .sigward-floating is placed BEFORE the header and absolutely positioned relative to .container */
 .sigward-floating{
   position: absolute;
-  top: -42px;    /* raised high — variant 3 */
-  right: 12px;   /* inside container's right edge */
+  top: -48px;    /* slightly higher for better overlap */
+  right: 12px;
   z-index:999;
   pointer-events:none;
   overflow:visible;
 }
 
+/* FIX: use fixed pixel width to prevent full-bleed */
 .sigward-floating-img{
-  width: clamp(80px, 12vw, 160px);
+  display:block;
+  width: 140px;        /* fixed sensible size so it never explodes */
   height: auto;
   object-fit: contain;
-  display:block;
   transform-origin: center bottom;
   filter: drop-shadow(0 8px 18px rgba(0,0,0,0.6));
   opacity:1;
@@ -169,7 +172,7 @@ main::after{
   .persona.card{min-height:170px;padding:1.1rem;border-radius:14px}
   .card-actions{justify-content:flex-start;gap:.6rem}
 
-  /* sigward smaller and closer to corner on mobile */
-  .sigward-floating{top:-22px;right:8px}
-  .sigward-floating-img{width: clamp(60px, 18vw, 120px)}
+  /* mobile: smaller sigward and closer to corner */
+  .sigward-floating{top:-26px; right:8px}
+  .sigward-floating-img{width: 90px}
 }
