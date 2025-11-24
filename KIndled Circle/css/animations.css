@@ -29,12 +29,16 @@
 .fade-in{animation:fadeIn .36s ease both}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
+/* header entrance subtle */
+.hero{opacity:0;transform:translateY(6px);animation:heroIn .36s ease forwards .05s}
+@keyframes heroIn{to{opacity:1;transform:none}}
+
 /* icon micro-effects */
 .persona-icon img, .hero-spark{transition: transform .18s ease, filter .18s ease, opacity .18s ease}
 .persona.card:hover .persona-icon img{transform: translateY(-3px) scale(1.03);filter: drop-shadow(0 10px 22px rgba(224,122,46,0.08));opacity:1}
 
-/* subtle glow for hero ember icon */
-.hero-spark{filter: drop-shadow(0 16px 36px rgba(224,122,46,0.12)); transform-origin:center}
+/* hero emblem gentle pulse */
+.hero-logo-wrap:hover .hero-spark{transform:scale(1.02);filter:drop-shadow(0 26px 52px rgba(224,122,46,0.14))}
 
 /* preview animation class */
 .persona.card.previewing{box-shadow: 0 22px 48px rgba(224,122,46,0.10)}
