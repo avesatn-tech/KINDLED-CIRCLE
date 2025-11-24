@@ -5,101 +5,81 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Embers — Guides</title>
   <link rel="stylesheet" href="main.css">
+  <style>
+    /* temporary safety rules to ensure sigward always visible */
+    .decor-sigward { opacity: 1 !important; display:block !important; }
+    .decor-sigward-wrap { overflow: visible !important; }
+  </style>
 </head>
 <body>
   <div class="container">
+    <!-- HERO (omitted for brevity; keep your existing hero) -->
+    <header class="hero" role="banner"> ... </header>
 
-    <!-- HERO -->
-    <header class="hero" role="banner">
-      <div class="hero-inner">
-        <div class="hero-left">
-          <h1 class="site-title">Embers</h1>
-          <p class="hero-lead">
-            Role-played guides — ask the Ancient, the Knight, or the Seer.
-            Practical tips, lore, and whispered secrets.
-          </p>
-
-          <div class="hero-cta">
-            <a class="btn ghost" href="https://discord.gg/YOUR_PERMANENT_INVITE" id="discord-link">
-              <img class="icon" src="img/discord.png" alt="" aria-hidden="true"> Join Kindle Circle
-            </a>
-          </div>
-        </div>
-
-        <div class="hero-right" aria-hidden="true">
-          <div class="hero-logo-wrap" aria-hidden="true">
-            <img class="hero-spark" src="img/ember.png" alt="Embers logo">
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- MAIN -->
     <main>
-
       <!-- Persona cards -->
       <section id="persona-cards" class="persona-cards" aria-label="Choose persona">
-        <article class="persona card" data-persona="ancient_dragon" tabindex="0">
-          <div class="persona-icon"><img src="img/dragon.png" alt="Ancient Dragon"></div>
-          <h3>Ancient Dragon</h3>
-          <p class="persona-desc">Slow, poetic wisdom. If you want loreful guidance and evocative hints.</p>
-          <div class="card-actions">
-            <button class="btn small select-btn">Select</button>
-            <button class="btn ghost small preview-btn">Preview</button>
-          </div>
-        </article>
-
-        <article class="persona card" data-persona="old_knight" tabindex="0">
-          <div class="persona-icon"><img src="img/knight.png" alt="Old Knight"></div>
-          <h3>Old Knight</h3>
-          <p class="persona-desc">Direct and tactical — step-by-step combat and build advice.</p>
-          <div class="card-actions">
-            <button class="btn small select-btn">Select</button>
-            <button class="btn ghost small preview-btn">Preview</button>
-          </div>
-        </article>
-
-        <article class="persona card" data-persona="mystic_seer" tabindex="0">
-          <div class="persona-icon"><img src="img/seer.png" alt="Mystic Seer"></div>
-          <h3>Mystic Seer</h3>
-          <p class="persona-desc">Cryptic hints and exploration cues — for secret hunters.</p>
-          <div class="card-actions">
-            <button class="btn small select-btn">Select</button>
-            <button class="btn ghost small preview-btn">Preview</button>
-          </div>
-        </article>
+        <!-- your persona cards here -->
       </section>
 
       <!-- Decorative Sigward sits here (directly after persona-cards) -->
-      <!-- Using the session-local path for preview: /mnt/data/sigward.png -->
       <div class="decor-sigward-wrap" aria-hidden="true">
-        <img class="decor-sigward bob" src="/mnt/data/sigward.png" alt="Sigward decorative">
+        <!-- Preferred production path: img/sigward.png -->
+        <!-- If you want to preview the uploaded file in the session, use /mnt/data/sigward.png -->
+        <img id="sigward-el" class="decor-sigward" src="img/sigward.png" alt="Sigward decorative">
       </div>
 
+      <!-- Instruction and chat follow -->
       <hr class="hr-subtle">
-
-      <!-- Pick a persona hint -->
-      <section class="card" id="pick-hint" style="min-height:220px;">
-        <div style="padding:2rem;color:var(--muted)">
-          <h3 style="margin:0 0 .6rem;font-weight:600;">Pick a persona to begin</h3>
-          <p style="margin:0">Click <strong>Select</strong> on any persona card and the conversation will open here.</p>
-        </div>
-      </section>
-
-      <!-- CHAT container -->
-      <section id="chat" aria-live="polite" class="card" style="min-height:260px;">
-        <div id="chat-placeholder" class="center" style="padding:2rem;color:var(--muted)">
-          <!-- chat will render here after selecting persona -->
-        </div>
-      </section>
-
+      <section class="card" id="pick-hint"> ... </section>
+      <section id="chat" class="card"> ... </section>
     </main>
-
-    <footer>
-      <p>© Embers — Guides. Minimal, atmospheric, role-played responses.</p>
-    </footer>
   </div>
 
-  <script type="module" src="main.js"></script>
+  <script>
+    // Safety JS: ensure image loaded, fallback to session file if not found,
+    // then add bob class to animate.
+    (function(){
+      const img = document.getElementById('sigward-el');
+
+      function enableBob(){
+        // add bob if not present
+        img.classList.add('bob');
+        img.style.opacity = '1';
+      }
+
+      // if the image fails to load, try the session-local preview path
+      img.addEventListener('error', function(){
+        console.warn('Sigward image failed to load at', img.src);
+        // try session preview - useful for quick checks (remove in production)
+        const sessionPath = '/mnt/data/sigward.png';
+        if (img.src !== sessionPath) {
+          img.src = sessionPath;
+        } else {
+          // last resort: show small placeholder so we know wrapper visible
+          img.style.width = '120px';
+          img.style.opacity = '1';
+          img.style.filter = 'grayscale(.6) contrast(.9)';
+        }
+      });
+
+      img.addEventListener('load', function(){
+        enableBob();
+        // ensure it is visible and constrained nicely
+        img.style.maxWidth = '45%';
+        img.style.height = 'auto';
+      });
+
+      // safety timeout: if nothing fires in 800ms, force visible
+      setTimeout(function(){
+        if (!img.complete || img.naturalWidth === 0) {
+          // maybe still loading; try session fallback
+          if (img.src.indexOf('/mnt/data') === -1) img.src = '/mnt/data/sigward.png';
+        } else {
+          enableBob();
+        }
+      }, 800);
+    })();
+  </script>
 </body>
 </html>
