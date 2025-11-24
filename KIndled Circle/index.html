@@ -15,6 +15,16 @@
 <body>
   <div class="container">
 
+    <!--
+      SIGWARD FLOATING — placed BEFORE the header in DOM order visually,
+      but as it is absolutely positioned relative to .container it will
+      sit visually on top-right corner of the header.
+      NOTE: image file must be at img/sigward.png (transparent background).
+    -->
+    <div class="sigward-floating" aria-hidden="true">
+      <img class="sigward-floating-img bob" src="img/sigward.png" alt="Sigward decorative">
+    </div>
+
     <!-- HERO -->
     <header class="hero" role="banner">
       <div class="hero-inner">
@@ -39,11 +49,6 @@
           </div>
         </div>
 
-      </div>
-
-      <!-- SIGWARD SITS ON THE TOP-RIGHT CORNER OF THE HERO -->
-      <div class="sigward-corner-wrap" aria-hidden="true">
-        <img class="sigward-corner bob" src="img/sigward.png" alt="Sigward decorative">
       </div>
     </header>
 
