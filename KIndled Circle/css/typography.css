@@ -1,4 +1,8 @@
-/* typography.css */
-h1,h2,h3{margin:0 0 .5rem 0}
-p{margin:0 0 .75rem 0}
-pre{white-space:pre-wrap}
+/* typography.css — headings, paragraphs, small typographic tweaks */
+
+h1,h2,h3{margin:0 0 .45rem 0;line-height:1.12}
+h2{font-size:1.25rem;font-family:var(--serif)}
+p{margin:0 0 .75rem 0;color:var(--muted)}
+small{font-size:.86rem;color:var(--muted)}
+code, pre{font-family:var(--mono);background:transparent}
+a{color:var(--accent)}
