@@ -1,88 +1,84 @@
-/* layout.css — hero, persona cards, and icon rules */
+/* layout.css — hero, persona cards, icon rules, and chat small tweaks */
 
 /* Hero */
 .hero{
-  padding:1.1rem 0 1.5rem 0;
+  padding:1.2rem 0 1.6rem 0;
   margin-bottom:.6rem;
   position:relative;
-}
-.hero-inner{display:flex;align-items:center;gap:1rem}
-.hero-left{flex:1;z-index:2}
-.hero-right{width:160px;display:flex;align-items:center;justify-content:center;opacity:0.95;transform:translateY(-8px)}
-.hero-lead{margin:.25rem 0 1rem;color:var(--muted);max-width:52ch}
-
-/* hero CTA */
-.hero-cta{display:flex;gap:.6rem;align-items:center}
-.hero-spark{width:120px;height:auto;opacity:.95;display:block}
-
-/* Persona cards */
-.persona-cards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1rem;
-  margin-bottom:1rem;
   z-index:2;
 }
-.persona.card{
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-  border-radius:12px;
-  padding:1rem;
-  border:1px solid rgba(255,255,255,0.02);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-  transition: transform .16s ease, box-shadow .18s ease, border-color .16s ease;
-  display:flex;
-  flex-direction:column;
-  gap:.6rem;
-  align-items:flex-start;
-  cursor:pointer;
-  min-height:128px;
+.hero-inner{display:flex;align-items:center;gap:1rem}
+.hero-left{flex:1;z-index:3}
+.hero-right{width:140px;display:flex;align-items:center;justify-content:center;opacity:0.95;transform:translateY(-8px)}
+.site-title{
+  font-family:var(--serif);
+  font-size:clamp(28px,3.6vw,40px);
+  margin:0 0 .2rem 0;
+  letter-spacing:.6px;
+  color:var(--text);
 }
+.hero-lead{margin:0 0 1rem 0;color:var(--muted);max-width:56ch;font-size:0.98rem}
 
-/* hover / focus */
-.persona.card:focus, .persona.card:hover{
-  transform:translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.7);
-  border-color: rgba(224,122,46,0.12);
-}
+/* hero CTA */
+.hero-cta{display:flex;gap:.6rem;align-items:center;margin-top:.4rem}
 
-/* persona icon block — uses img/* from project root */
-.persona-icon{
-  width:56px;
-  height:56px;
+/* circular logo wrapper — hides square contour and creates neat border */
+.hero-logo-wrap{
+  width:96px;
+  height:96px;
+  border-radius:14px;
   display:flex;
   align-items:center;
   justify-content:center;
-  border-radius:10px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(224,122,46,0.02));
-  border:1px solid rgba(255,255,255,0.02);
-  box-shadow: inset 0 -2px 6px rgba(0,0,0,0.25);
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+  box-shadow: 0 18px 40px rgba(0,0,0,0.6), 0 4px 18px rgba(224,122,46,0.04);
+  border:1px solid rgba(255,255,255,0.03);
+  position: relative;
+  overflow: hidden;
 }
-.persona-icon img{
-  width:40px;
-  height:40px;
-  object-fit:contain;
-  display:block;
-  filter: none;
-  /* if you later switch to SVG inline you can set: color:var(--accent) */
+/* inner subtle gold ring (thin) */
+.hero-logo-wrap::after{
+  content:"";
+  position:absolute;
+  inset:6px;
+  border-radius:10px;
+  pointer-events:none;
+  border:1px solid rgba(224,122,46,0.08);
 }
 
+/* image itself — scale down and remove background visual artifacts */
+.hero-spark{
+  width:64px;
+  height:64px;
+  object-fit:contain;
+  display:block;
+  transform:translateZ(0);
+  filter:drop-shadow(0 14px 30px rgba(224,122,46,0.10));
+  background:transparent;
+}
+
+/* Persona cards */
+.persona-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem;z-index:2}
+.persona.card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  border-radius:12px;padding:1rem;border:1px solid rgba(255,255,255,0.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  transition: transform .16s ease, box-shadow .18s ease, border-color .16s ease;
+  display:flex;flex-direction:column;gap:.6rem;align-items:flex-start;cursor:pointer;min-height:128px;
+}
+.persona.card:focus, .persona.card:hover{transform:translateY(-6px);box-shadow: 0 18px 40px rgba(0,0,0,0.7);border-color: rgba(224,122,46,0.12);}
+.persona-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:10px;background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(224,122,46,0.02));border:1px solid rgba(255,255,255,0.02);box-shadow: inset 0 -2px 6px rgba(0,0,0,0.25);}
+.persona-icon img{width:40px;height:40px;object-fit:contain;display:block;filter:none}
 .persona h3{margin:0;font-size:1.05rem}
 .persona-desc{margin:0;color:var(--muted);font-size:.92rem}
 .card-actions{margin-top:auto;display:flex;gap:.5rem;width:100%;justify-content:flex-end}
+.persona.card.selected{outline:none;border-color: rgba(224,122,46,0.18);box-shadow: 0 18px 40px rgba(224,122,46,0.06);}
 
-/* selected state helper */
-.persona.card.selected{
-  outline: none;
-  border-color: rgba(224,122,46,0.18);
-  box-shadow: 0 18px 40px rgba(224,122,46,0.06);
-}
+/* Chat area tweaks */
+#chat .card{padding:.6rem;margin-bottom:.6rem}
+#messages{max-height:420px;overflow:auto;padding:.25rem}
+#chat-input{resize:vertical;min-height:56px;padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
 
 /* subtle responsive */
-@media (max-width:900px){
-  .persona-cards{grid-template-columns:repeat(2,1fr)}
-}
-@media (max-width:640px){
-  .hero-inner{flex-direction:column;gap:.6rem}
-  .persona-cards{grid-template-columns:1fr}
-  .hero-right{display:none}
-}
+@media (max-width:900px){.persona-cards{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.hero-inner{flex-direction:column;gap:.6rem}.persona-cards{grid-template-columns:1fr}.hero-right{display:none}.hero-logo-wrap{width:82px;height:82px}.hero-spark{width:52px;height:52px}}
