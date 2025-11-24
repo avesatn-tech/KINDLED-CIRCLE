@@ -1,4 +1,4 @@
-/* layout.css — proportional header + persona cards + chat tweaks */
+/* layout.css — proportional header + persona cards + chat tweaks (mobile: logo under text) */
 
 /* HERO: proportional, fluid sizes based on root clamp vars */
 .hero{
@@ -35,7 +35,6 @@
   pointer-events:none;
 }
 
-/* inner layout uses the same gap variable */
 .hero-inner{display:flex;align-items:center;gap:var(--h-gap);width:100%}
 .hero-left{flex:1;min-width:0}
 .hero-right{width:var(--emblem-wrap);display:flex;align-items:center;justify-content:center;padding-left:calc(var(--h-gap) / 2);}
@@ -91,7 +90,7 @@
   background:transparent;
 }
 
-/* Persona cards (unchanged logic but spacing tuned) */
+/* Persona cards */
 .persona-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;padding-top:0.25rem;z-index:2}
 .persona.card{background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border-radius:12px;padding:1rem;border:1px solid rgba(255,255,255,0.02);box-shadow: 0 8px 20px rgba(0,0,0,0.6);transition: transform .16s ease, box-shadow .18s ease, border-color .16s ease;display:flex;flex-direction:column;gap:.6rem;align-items:flex-start;cursor:pointer;min-height:128px;}
 .persona.card:focus, .persona.card:hover{transform:translateY(-6px);box-shadow: 0 18px 40px rgba(0,0,0,0.7);border-color: rgba(224,122,46,0.12);}
@@ -107,7 +106,7 @@
 #messages{max-height:420px;overflow:auto;padding:.25rem}
 #chat-input{resize:vertical;min-height:56px;padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
 
-/* RESPONSIVE: make header and emblem behave in-flow on small screens */
+/* RESPONSIVE: switch header to column on small screens (logo under text, centered) */
 @media (max-width:720px){
   :root{
     --h-pad: clamp(10px, 3vw, 14px);
@@ -119,7 +118,8 @@
   }
   .hero{width:100%;margin-left:0;margin-right:0;border-radius:12px;padding:14px}
   .hero-inner{flex-direction:column;align-items:flex-start;gap:.85rem}
-  .hero-right{width:100%;display:flex;justify-content:flex-end;padding-left:0}
+  .hero-right{width:100%;display:flex;justify-content:center;padding-left:0;margin-top:2px}
   .hero-logo-wrap{width:var(--emblem-wrap);height:var(--emblem-wrap);border-radius:12px}
   .hero::after{ right: calc(var(--emblem-wrap) + var(--h-gap)); } /* seam adjusted */
+  .hero-cta{margin-top:.25rem}
 }
