@@ -1,30 +1,87 @@
-/* main.css
-   Базовые переменные и подключение к стилям из /css (если хочешь использовать import, можно раскомментировать)
-*/
+/* main.css — root stylesheet: imports component files and sets core variables */
 
-/* Пример корневых переменных */
+@import "css/typography.css";
+@import "css/layout.css";
+@import "css/forms.css";
+@import "css/buttons.css";
+@import "css/animations.css";
+
+/* --- Theme variables (tweak these to taste) --- */
 :root{
-  --base-bg: #fff;
-  --text: #111;
-  --accent: #b45309; /* ember-like */
-  --max-width: 1000px;
+  --bg-ink: #0c0c0d;             /* deep black ink */
+  --panel: #0f1113;              /* card background */
+  --muted: #9aa0a6;              /* secondary text */
+  --text: #e8eef2;               /* main text */
+  --accent: #e07a2e;             /* ember orange */
+  --ember-soft: rgba(224,122,46,0.08);
+  --glass: rgba(255,255,255,0.03);
+  --shadow-strong: 0 10px 30px rgba(0,0,0,0.65);
+  --radius: 12px;
+  --max-width: 980px;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+  --serif: "Ibarra Real Nova", "Georgia", serif;
+  --sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  --grain-image: url('/mnt/data/0c9e8198-c081-4816-8f9e-0fa2a814702c.png');
 }
 
-/* Базовая разметка */
+/* base */
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
-body{
-  background:var(--base-bg);
-  color:var(--text);
-  padding:1rem;
-  display:flex;
-  justify-content:center;
-}
-main{max-width:var(--max-width);width:100%}
+html,body{height:100%;margin:0;font-family:var(--sans);background:
+  radial-gradient(1200px 500px at 10% 10%, rgba(224,122,46,0.03), transparent 6%),
+  var(--bg-ink);
+color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+body{display:flex;justify-content:center;padding:2.5rem}
 
-/* Подключения (опционально) - можно подключать файлы из /css в build-процессе */
-/* @import "css/typography.css";
-   @import "css/layout.css";
-   @import "css/forms.css";
-   @import "css/buttons.css";
-*/
+/* container */
+.container{width:100%;max-width:var(--max-width);padding:0 1rem}
+
+/* general card / main */
+main{
+  position:relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:var(--radius);
+  padding:1.25rem;
+  box-shadow: var(--shadow-strong);
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.02);
+}
+
+/* subtle grain overlay using uploaded image (optional) */
+main::after{
+  content:"";
+  position:absolute; inset:0; pointer-events:none;
+  background-image: var(--grain-image);
+  background-size:cover;
+  opacity:0.03;
+  mix-blend-mode:overlay;
+  border-radius:inherit;
+}
+
+/* header */
+header h1{font-family:var(--serif);font-weight:600;margin:0 0 .25rem;font-size:1.75rem;letter-spacing:0.7px}
+header p{margin:0;color:var(--muted);font-size:0.95rem}
+
+/* nav */
+nav ul{list-style:none;padding:0;margin:.75rem 0 0;display:flex;gap:.75rem;align-items:center}
+nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.95rem;opacity:.95}
+nav a:hover{color:var(--text);text-decoration:underline}
+
+/* layout: ask + answer */
+#ask{display:block}
+#ask label{display:block;font-size:.86rem;color:var(--muted);margin-top:.85rem;margin-bottom:.35rem}
+#ask select, #ask textarea, #ask input{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.03);padding:.6rem;border-radius:8px;color:var(--text);font-size:0.95rem}
+#ask textarea{min-height:120px;resize:vertical;font-family:var(--sans)}
+
+/* answer panel */
+#answer{margin-top:1.1rem;min-height:140px;padding:1rem;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+.answer-pre{white-space:pre-wrap;font-family:var(--mono);font-size:0.98rem;line-height:1.5;color:var(--text)}
+.answer-meta{display:flex;gap:.5rem;align-items:center;color:var(--muted);font-size:.88rem;margin-bottom:.5rem}
+
+/* footer */
+footer{margin-top:.9rem;color:var(--muted);font-size:.85rem;text-align:center}
+
+/* small responsive */
+@media (max-width:640px){
+  header h1{font-size:1.4rem}
+  nav ul{flex-wrap:wrap;gap:.5rem}
+}
