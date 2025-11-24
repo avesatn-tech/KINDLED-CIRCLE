@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Embers — Guides</title>
 
+  <!-- Core CSS -->
   <link rel="stylesheet" href="main.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/buttons.css">
@@ -26,35 +27,35 @@
           </p>
 
           <div class="hero-cta">
-            <a class="btn ghost" href="https://discord.gg/YOUR_INVITE">
-              <img class="icon" src="img/discord.png" alt=""> Join Kindle Circle
+            <a class="btn ghost" href="https://discord.gg/YOUR_PERMANENT_INVITE" id="discord-link">
+              <img class="icon" src="img/discord.png" alt="" aria-hidden="true"> Join Kindle Circle
             </a>
           </div>
         </div>
 
         <div class="hero-right" aria-hidden="true">
-          <div class="hero-logo-wrap">
+          <div class="hero-logo-wrap" aria-hidden="true">
             <img class="hero-spark" src="img/ember.png" alt="Embers logo">
           </div>
         </div>
 
+      </div>
+
+      <!-- SIGWARD SITS ON THE TOP-RIGHT CORNER OF THE HERO -->
+      <div class="sigward-corner-wrap" aria-hidden="true">
+        <img class="sigward-corner bob" src="img/sigward.png" alt="Sigward decorative">
       </div>
     </header>
 
     <!-- MAIN -->
     <main>
 
-      <!-- PERSONAS -->
-      <section id="persona-cards" class="persona-cards">
-
+      <!-- PERSONA CARDS -->
+      <section id="persona-cards" class="persona-cards" aria-label="Choose persona">
         <article class="persona card" data-persona="ancient_dragon" tabindex="0">
-          <div class="persona-icon">
-            <img src="img/dragon.png" alt="Ancient Dragon">
-          </div>
+          <div class="persona-icon"><img src="img/dragon.png" alt="Ancient Dragon"></div>
           <h3>Ancient Dragon</h3>
-          <p class="persona-desc">
-            Slow, poetic wisdom. If you want loreful guidance and evocative hints.
-          </p>
+          <p class="persona-desc">Slow, poetic wisdom. If you want loreful guidance and evocative hints.</p>
           <div class="card-actions">
             <button class="btn small select-btn">Select</button>
             <button class="btn ghost small preview-btn">Preview</button>
@@ -62,13 +63,9 @@
         </article>
 
         <article class="persona card" data-persona="old_knight" tabindex="0">
-          <div class="persona-icon">
-            <img src="img/knight.png" alt="Old Knight">
-          </div>
+          <div class="persona-icon"><img src="img/knight.png" alt="Old Knight"></div>
           <h3>Old Knight</h3>
-          <p class="persona-desc">
-            Direct and tactical — step-by-step combat and build advice.
-          </p>
+          <p class="persona-desc">Direct and tactical — step-by-step combat and build advice.</p>
           <div class="card-actions">
             <button class="btn small select-btn">Select</button>
             <button class="btn ghost small preview-btn">Preview</button>
@@ -76,43 +73,30 @@
         </article>
 
         <article class="persona card" data-persona="mystic_seer" tabindex="0">
-          <div class="persona-icon">
-            <img src="img/seer.png" alt="Mystic Seer">
-          </div>
+          <div class="persona-icon"><img src="img/seer.png" alt="Mystic Seer"></div>
           <h3>Mystic Seer</h3>
-          <p class="persona-desc">
-            Cryptic hints and exploration cues — for secret hunters.
-          </p>
+          <p class="persona-desc">Cryptic hints and exploration cues — for secret hunters.</p>
           <div class="card-actions">
             <button class="btn small select-btn">Select</button>
             <button class="btn ghost small preview-btn">Preview</button>
           </div>
         </article>
-
       </section>
-
-      <!-- SIGWARD DECOR (placed RIGHT after persona-cards) -->
-      <div class="decor-sigward-wrap" aria-hidden="true">
-        <!-- ПРОЕКТНЫЙ ПУТЬ: img/sigward.png -->
-        <img class="decor-sigward" src="img/sigward.png" alt="Siegward">
-      </div>
 
       <hr class="hr-subtle">
 
       <!-- PICK A PERSONA HINT -->
       <section class="card" id="pick-hint" style="min-height:220px;">
-        <div style="padding:2rem;">
-          <h3 style="margin:0 0 .6rem;">Pick a persona to begin</h3>
-          <p style="margin:0;">
-            Click <strong>Select</strong> on any persona card and the conversation will open here.
-          </p>
+        <div style="padding:2rem;color:var(--muted)">
+          <h3 style="margin:0 0 .6rem;font-weight:600;">Pick a persona to begin</h3>
+          <p style="margin:0">Click <strong>Select</strong> on any persona card and the conversation will open here.</p>
         </div>
       </section>
 
       <!-- CHAT -->
       <section id="chat" aria-live="polite" class="card" style="min-height:260px;">
         <div id="chat-placeholder" class="center" style="padding:2rem;color:var(--muted)">
-          <!-- chat loads here -->
+          <!-- Chat UI will render here when a persona is selected -->
         </div>
       </section>
 
