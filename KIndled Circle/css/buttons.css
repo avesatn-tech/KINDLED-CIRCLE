@@ -9,8 +9,8 @@
 .btn.small{padding:.35rem .6rem;font-size:.86rem}
 
 /* inline icon */
-.icon{width:18px;height:18px;vertical-align:middle;margin-right:.5rem;display:inline-block;object-fit:contain}
-#discord-link .icon{width:18px;height:18px;margin-right:.5rem;vertical-align:middle}
+.icon{width:25px;height:25px;vertical-align:middle;margin-right:.5rem;display:inline-block;object-fit:contain}
+#discord-link .icon{width:25px;height:25px;margin-right:.5rem;vertical-align:middle}
 
 /* header links: no underline */
 nav a, .hero-cta a, a{ text-decoration:none; color:inherit; }
@@ -28,3 +28,4 @@ nav a:hover::after{ width: 40%; }
 
 /* accessibility focus */
 a:focus, button:focus, .persona.card:focus{outline: 3px solid rgba(224,122,46,0.06); outline-offset:2px}
+
