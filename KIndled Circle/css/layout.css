@@ -1,8 +1,9 @@
-/* layout.css — header, persona cards, chat tweaks
-   Restored logo properties: sizes, ring, soft shadow.
-   Keep proportional variables synced with main.css.
+/* layout.css — full replacement
+   Restored header + stable Sigward sizing and placement so PNG never overflows.
+   Replace this file entirely in css/ folder.
 */
 
+/* Root sizing vars (should match main.css) */
 :root{
   --h-pad: clamp(12px, 2.2vw, 22px);
   --h-gap: clamp(12px, 2.4vw, 28px);
@@ -32,7 +33,7 @@
   overflow:visible;
 }
 
-/* gold seam under header (stops before emblem) */
+/* seam */
 .hero::after{
   content: "";
   position: absolute;
@@ -68,17 +69,10 @@
   font-size:var(--lead-size);
 }
 
-/* CTA row */
+/* CTA */
 .hero-cta{display:flex;gap:.6rem;align-items:center}
 
-/* -------------------------------
-   EMBLEM: framed, but subtle
-   -------------------------------
-   Restored:
-   - panel background / soft shadow
-   - thin gold ring (::after) for visual tie-in
-   - inner image scaling (hero-spark)
-*/
+/* EMBLEM (subtle framed) */
 .hero-logo-wrap{
   width: var(--emblem-wrap);
   height: var(--emblem-wrap);
@@ -93,8 +87,6 @@
   overflow: hidden;
   transform: translateZ(0);
 }
-
-/* thin decorative ring — subtle gold */
 .hero-logo-wrap::after{
   content:"";
   position:absolute;
@@ -105,8 +97,6 @@
   mix-blend-mode:screen;
   opacity:0.95;
 }
-
-/* emblem itself — proper scaling + glow for contrast */
 .hero-spark{
   width: var(--emblem-size);
   height: var(--emblem-size);
@@ -117,7 +107,7 @@
   transform: translateZ(0);
 }
 
-/* Persona cards layout */
+/* PERSONAS grid */
 .persona-cards{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -134,7 +124,12 @@
   border:1px solid rgba(255,255,255,0.02);
   box-shadow: 0 8px 20px rgba(0,0,0,0.6);
   transition: transform .16s ease, box-shadow .18s ease, border-color .16s ease;
-  display:flex;flex-direction:column;gap:.6rem;align-items:flex-start;cursor:pointer;min-height:150px;
+  display:flex;
+  flex-direction:column;
+  gap:.6rem;
+  align-items:flex-start;
+  cursor:pointer;
+  min-height:150px;
 }
 .persona.card:focus, .persona.card:hover{transform:translateY(-6px);box-shadow: 0 18px 40px rgba(0,0,0,0.7);border-color: rgba(224,122,46,0.12)}
 .persona-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:10px;background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(224,122,46,0.02));border:1px solid rgba(255,255,255,0.02);box-shadow: inset 0 -2px 6px rgba(0,0,0,0.25)}
@@ -149,12 +144,59 @@
 #messages{max-height:420px;overflow:auto;padding:.25rem}
 #chat-input{resize:vertical;min-height:56px;padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
 
-/* responsive adjustments */
+/* ========== SIGWARD DECOR (fixed sizing) ==========
+   Use a trimmed PNG (transparent bg). This block places the image visually
+   sitting on top of persona area without overflowing. */
+
+/* wrapper: keep decorative but non-interactive */
+.decor-sigward-wrap{
+  position: relative;
+  width: 100%;
+  pointer-events: none;
+  /* smaller negative margin so it doesn't lift too much */
+  margin-top: -18px;
+  display:flex;
+  justify-content:flex-end; /* desktop: sits toward right edge */
+  z-index:4;
+  padding-right: 8px; /* small inward nudge */
+  overflow: visible;
+}
+
+/* SIGWARD image: strict responsive constraints */
+.decor-sigward{
+  display:block;
+  width: clamp(220px, 28vw, 420px); /* safe responsive width */
+  max-width: 45%;                  /*% relative to container */
+  height: auto;
+  max-height: calc( (var(--emblem-wrap) * 1.6) ); /* ensure it never exceeds reasonable height */
+  object-fit: contain;             /* keep whole figure visible */
+  transform-origin: center bottom;
+  will-change: transform, opacity;
+  opacity: 0;
+  transform: translateY(6px) scale(0.995);
+  animation: sigwardIn .48s cubic-bezier(.2,.9,.3,1) forwards .12s;
+}
+
+/* optional slow bob motion — enable by adding 'bob' class */
+.decor-sigward.bob { animation: sigwardBob 3.8s ease-in-out infinite; }
+
+/* subtle hover lift (pointer-events currently none; enable later if needed) */
+.decor-sigward:hover{ transform: translateY(-4px) scale(1.01); }
+
+/* entry + bob keyframes */
+@keyframes sigwardIn{
+  to{ opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes sigwardBob{
+  0%{ transform: translateY(0) }
+  50%{ transform: translateY(-6px) }
+  100%{ transform: translateY(0) }
+}
+
+/* RESPONSIVE: on small screens center and reduce size further */
 @media (max-width:900px){
   .persona-cards{grid-template-columns:repeat(2,1fr);gap:.9rem}
 }
-
-/* mobile: column header; emblem moves under text and scales */
 @media (max-width:720px){
   :root{
     --h-pad: clamp(10px, 3vw, 14px);
@@ -164,14 +206,27 @@
     --emblem-size: clamp(40px, 10vw, 60px);
     --emblem-wrap: calc(var(--emblem-size) * 1.5);
   }
+
   .hero{width:100%;margin-left:0;margin-right:0;border-radius:12px;padding:14px}
   .hero-inner{flex-direction:column;align-items:flex-start;gap:.85rem}
   .hero-right{width:100%;display:flex;justify-content:center;padding-left:0;margin-top:4px}
   .hero-logo-wrap{width:var(--emblem-wrap);height:var(--emblem-wrap);border-radius:12px}
   .hero::after{ right: calc(var(--emblem-wrap) + var(--h-gap)); }
 
-  /* mobile persona stack */
+  /* mobile: single column personas */
   .persona-cards{grid-template-columns:1fr;gap:1rem;margin:1rem 0;padding:0}
   .persona.card{min-height:170px;padding:1.1rem;border-radius:14px}
   .card-actions{justify-content:flex-start;gap:.6rem}
+
+  /* push sigward into center and reduce size */
+  .decor-sigward-wrap{
+    justify-content:center;
+    margin-top: 6px; /* small positive margin to avoid overlap */
+    padding-right: 0;
+  }
+  .decor-sigward{
+    width: clamp(160px, 40vw, 320px);
+    max-width: 60%;
+    animation-delay: .06s;
+  }
 }
