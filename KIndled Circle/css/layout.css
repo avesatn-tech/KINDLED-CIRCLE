@@ -103,7 +103,7 @@ main::after{content:"";position:absolute;inset:0;pointer-events:none;background-
 /* wrapper must live inside .hero so its absolute positioning references header */
 .sigward-corner-wrap{
   position:absolute;
-  top: -18px;          /* how much it sits ON the corner */
+  top: -42px;          /* how much it sits ON the corner */
   right: -12px;        /* how far it nudges outside the hero */
   pointer-events:none; /* decorative only */
   z-index:60;
@@ -154,3 +154,4 @@ main::after{content:"";position:absolute;inset:0;pointer-events:none;background-
   .sigward-corner-wrap{top:-10px;right:-8px}
   .sigward-corner{width: clamp(60px, 18vw, 120px)}
 }
+
