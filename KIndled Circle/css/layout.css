@@ -1,71 +1,91 @@
-/* layout.css — hero, persona cards, icon rules, and chat small tweaks */
+/* layout.css — header as floating glass block + persona cards + chat tweaks */
 
-/* Hero */
+/* HERO: floating glass header that visually spans to emblem */
 .hero{
-  padding:1.2rem 0 1.6rem 0;
-  margin-bottom:.6rem;
+  width: calc(100% + 2rem); /* slightly expand visually to balance with container padding */
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding: 1.05rem 1.25rem;
+  border-radius: 14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   position:relative;
-  z-index:2;
+  z-index:5;
+  background: rgba(12,12,12, var(--glass-alpha)); /* glass base */
+  box-shadow: 0 12px 36px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.02);
+  backdrop-filter: blur(6px) saturate(1.05);
+  -webkit-backdrop-filter: blur(6px) saturate(1.05);
+  overflow:visible;
 }
-.hero-inner{display:flex;align-items:center;gap:1rem}
-.hero-left{flex:1;z-index:3}
-.hero-right{width:140px;display:flex;align-items:center;justify-content:center;opacity:0.95;transform:translateY(-8px)}
-.site-title{
-  font-family:var(--serif);
-  font-size:clamp(28px,3.6vw,40px);
-  margin:0 0 .2rem 0;
-  letter-spacing:.6px;
-  color:var(--text);
+
+/* gold seam under header */
+.hero::after{
+  content: "";
+  position: absolute;
+  left: 1.25rem;
+  right: calc(140px + 2rem); /* stop before emblem panel (emblem width + margins) */
+  bottom: -10px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(224,122,46,0) 0%, rgba(224,122,46,0.18) 40%, rgba(224,122,46,0.25) 50%, rgba(224,122,46,0.18) 60%, rgba(224,122,46,0) 100%);
+  filter: blur(8px);
+  opacity:0.9;
+  pointer-events:none;
 }
-.hero-lead{margin:0 0 1rem 0;color:var(--muted);max-width:56ch;font-size:0.98rem}
 
-/* hero CTA */
-.hero-cta{display:flex;gap:.6rem;align-items:center;margin-top:.4rem}
+/* inner layout */
+.hero-inner{display:flex;align-items:center;gap:1.2rem;width:100%}
+.hero-left{flex:1;min-width:0}
+.hero-right{width:140px;display:flex;align-items:center;justify-content:center;padding-left:1rem;}
 
-/* circular logo wrapper — hides square contour and creates neat border */
+/* title + lead */
+.site-title{font-family:var(--serif);font-size:clamp(28px,3.6vw,40px);margin:0 0 .2rem 0;letter-spacing:.6px;color:var(--text)}
+.hero-lead{margin:0 0 0.6rem 0;color:var(--muted);max-width:60ch;font-size:0.98rem}
+
+/* CTA row */
+.hero-cta{display:flex;gap:.6rem;align-items:center}
+
+/* emblem panel: framed, slightly raised so it reads as part of header block */
 .hero-logo-wrap{
-  width:96px;
-  height:96px;
-  border-radius:14px;
+  width:116px;
+  height:116px;
+  border-radius:16px;
   display:flex;
   align-items:center;
   justify-content:center;
   background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-  box-shadow: 0 18px 40px rgba(0,0,0,0.6), 0 4px 18px rgba(224,122,46,0.04);
-  border:1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 22px 48px rgba(0,0,0,0.6), inset 0 -6px 18px rgba(0,0,0,0.25);
+  border:1px solid rgba(255,255,255,0.02);
   position: relative;
-  overflow: hidden;
+  transform: translateY(0); /* can be negative to float */
+  overflow:hidden;
 }
-/* inner subtle gold ring (thin) */
+
+/* gold ring thread */
 .hero-logo-wrap::after{
   content:"";
   position:absolute;
-  inset:6px;
+  inset:10px;
   border-radius:10px;
   pointer-events:none;
-  border:1px solid rgba(224,122,46,0.08);
+  border:1px solid rgba(224,122,46,0.09);
 }
 
-/* image itself — scale down and remove background visual artifacts */
+/* emblem itself */
 .hero-spark{
-  width:64px;
-  height:64px;
+  width:72px;
+  height:72px;
   object-fit:contain;
   display:block;
-  transform:translateZ(0);
-  filter:drop-shadow(0 14px 30px rgba(224,122,46,0.10));
+  filter: drop-shadow(0 18px 42px rgba(224,122,46,0.12));
   background:transparent;
 }
 
-/* Persona cards */
-.persona-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem;z-index:2}
-.persona.card{
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-  border-radius:12px;padding:1rem;border:1px solid rgba(255,255,255,0.02);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-  transition: transform .16s ease, box-shadow .18s ease, border-color .16s ease;
-  display:flex;flex-direction:column;gap:.6rem;align-items:flex-start;cursor:pointer;min-height:128px;
-}
+/* Persona cards (kept from previous but ensure spacing below header) */
+.persona-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;padding-top:0.25rem;z-index:2}
+.persona.card{background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border-radius:12px;padding:1rem;border:1px solid rgba(255,255,255,0.02);box-shadow: 0 8px 20px rgba(0,0,0,0.6);transition: transform .16s ease, box-shadow .18s ease, border-color .16s ease;display:flex;flex-direction:column;gap:.6rem;align-items:flex-start;cursor:pointer;min-height:128px;}
 .persona.card:focus, .persona.card:hover{transform:translateY(-6px);box-shadow: 0 18px 40px rgba(0,0,0,0.7);border-color: rgba(224,122,46,0.12);}
 .persona-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:10px;background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(224,122,46,0.02));border:1px solid rgba(255,255,255,0.02);box-shadow: inset 0 -2px 6px rgba(0,0,0,0.25);}
 .persona-icon img{width:40px;height:40px;object-fit:contain;display:block;filter:none}
@@ -79,6 +99,16 @@
 #messages{max-height:420px;overflow:auto;padding:.25rem}
 #chat-input{resize:vertical;min-height:56px;padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
 
-/* subtle responsive */
-@media (max-width:900px){.persona-cards{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:640px){.hero-inner{flex-direction:column;gap:.6rem}.persona-cards{grid-template-columns:1fr}.hero-right{display:none}.hero-logo-wrap{width:82px;height:82px}.hero-spark{width:52px;height:52px}}
+/* responsive adjustments */
+@media (max-width:900px){
+  .persona-cards{grid-template-columns:repeat(2,1fr)}
+  .hero::after{ right: calc(120px + 2rem); } /* adjust seam end for smaller emblem */
+}
+@media (max-width:640px){
+  .hero{width:100%;margin-left:0;margin-right:0;border-radius:10px;padding:.9rem}
+  .hero-inner{flex-direction:column;gap:.6rem;align-items:flex-start}
+  .hero-right{width:100%;display:flex;justify-content:flex-end}
+  .hero-logo-wrap{width:82px;height:82px}
+  .hero-spark{width:52px;height:52px}
+  .persona-cards{grid-template-columns:1fr}
+}
