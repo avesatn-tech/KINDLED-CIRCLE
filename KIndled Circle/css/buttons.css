@@ -1,21 +1,21 @@
-/* buttons.css — full replacement focused on header/nav/cta */
+/* buttons.css — header/nav/cta */
 
 .controls{display:flex;gap:.6rem;align-items:center}
 .btn{cursor:pointer;font-weight:700;font-size:.95rem;padding:.45rem .85rem;border-radius:10px;border:0;transition:transform .12s ease, box-shadow .15s ease}
-.btn.primary{background:linear-gradient(180deg,var(--accent), #c55f1f);color:#0b0b0b;box-shadow: 0 6px 22px rgba(224,122,46,0.12), inset 0 -2px 0 rgba(0,0,0,0.12);}
+.btn.primary{background:linear-gradient(180deg,var(--accent), #c55f1f);color:#0b0b0b;box-shadow: 0 6px 22px rgba(224,122,46,0.12), inset 0 -2px 0 rgba(0,0,0,0.12)}
 .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
 .btn:hover{transform:translateY(-3px)}
 .btn:active{transform:translateY(-1px);box-shadow:none}
 .btn.small{padding:.35rem .6rem;font-size:.86rem}
 
-/* remove underline and normalize links in header/nav */
-nav a, .hero-cta a, a{ text-decoration:none; color:inherit; }
-
-/* inline icon small */
+/* inline icon */
 .icon{width:18px;height:18px;vertical-align:middle;margin-right:.5rem;display:inline-block;object-fit:contain}
 #discord-link .icon{width:18px;height:18px;margin-right:.5rem;vertical-align:middle}
 
-/* link hover underline animation — subtle gold bar */
+/* header links: no underline */
+nav a, .hero-cta a, a{ text-decoration:none; color:inherit; }
+
+/* link hover gold seam effect */
 nav a::after{
   content:"";
   display:block;
@@ -25,3 +25,6 @@ nav a::after{
   transition: width .28s ease;
 }
 nav a:hover::after{ width: 40%; }
+
+/* accessibility focus */
+a:focus, button:focus, .persona.card:focus{outline: 3px solid rgba(224,122,46,0.06); outline-offset:2px}
