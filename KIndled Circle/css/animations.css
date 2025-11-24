@@ -1,23 +1,29 @@
-/* animations.css — particles, header entrance, micro-effects */
+/* animations.css — includes Sigward bob and small micro-effects plus previous particles */
 
+/* ember particle layer (unchanged) */
 .ember-layer{pointer-events:none;position:absolute;inset:0;z-index:0;overflow:hidden}
-
 .ember{position:absolute;width:6px;height:6px;border-radius:50%;background: radial-gradient(circle at 30% 30%, #fff, var(--accent) 40%, rgba(224,122,46,0.12) 70%);box-shadow: 0 0 10px rgba(224,122,46,0.7);opacity:0;transform:translateY(0) scale(0.6);animation: ember-float linear forwards}
 @keyframes ember-float{0%{transform:translateY(20px) scale(.6);opacity:0;filter:blur(.6px)}10%{opacity:1}70%{opacity:.85;transform:translateY(-120px) scale(1.05)}100%{transform:translateY(-220px) scale(1.2);opacity:0;filter:blur(1.6px)}}
 
+/* spinner */
 .spinner{width:30px;height:30px;border-radius:50%;border:3px solid rgba(255,255,255,0.06);border-top-color:var(--accent);animation:spin 1s linear infinite;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
 
+/* typewriter */
 .typewriter{display:inline-block;overflow:hidden;white-space:pre-wrap;border-right:.12em solid rgba(255,255,255,0.06)}
 .typewriter.done{border-right:0}
 .fade-in{animation:fadeIn .36s ease both}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
+/* hero intro (kept) */
 .hero{opacity:0;transform:translateY(6px);animation:heroIn .36s ease forwards .05s}
 @keyframes heroIn{to{opacity:1;transform:none}}
 
+/* persona/icon micro-effects (kept) */
 .persona-icon img, .hero-spark{transition: transform .18s ease, filter .18s ease, opacity .18s ease}
 .persona.card:hover .persona-icon img{transform: translateY(-3px) scale(1.03);filter: drop-shadow(0 10px 22px rgba(224,122,46,0.08));opacity:1}
 
-.hero-logo-wrap:hover .hero-spark{transform:scale(1.02);filter:drop-shadow(0 26px 52px rgba(224,122,46,0.14))}
-.persona.card.previewing{box-shadow: 0 22px 48px rgba(224,122,46,0.10)}
+/* Sigward-specific: toggle bob class via JS if you want continuous bobbing */
+.decor-sigward { transition: transform .24s ease, opacity .28s ease; }
+.decor-sigward.bob { animation: sigwardBob 3.6s ease-in-out infinite; }
+@keyframes sigwardBob{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
