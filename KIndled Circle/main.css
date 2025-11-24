@@ -1,4 +1,4 @@
-/* main.css — root stylesheet: imports component files and sets core variables */
+/* main.css — full replacement (imports and variables) */
 
 @import "css/typography.css";
 @import "css/layout.css";
@@ -6,36 +6,34 @@
 @import "css/buttons.css";
 @import "css/animations.css";
 
-/* --- Theme variables (tweak these to taste) --- */
 :root{
-  --bg-ink: #0c0c0d;             /* deep black ink */
-  --panel: #0f1113;              /* card background */
-  --muted: #9aa0a6;              /* secondary text */
-  --text: #e8eef2;               /* main text */
-  --accent: #e07a2e;             /* ember orange */
+  --bg-ink: #0b0b0b;
+  --panel: #0f1113;
+  --muted: #9aa0a6;
+  --text: #e8eef2;
+  --accent: #e07a2e;
   --ember-soft: rgba(224,122,46,0.08);
-  --glass: rgba(255,255,255,0.03);
+  --glass-alpha: 0.18; /* glass opacity */
   --shadow-strong: 0 10px 30px rgba(0,0,0,0.65);
   --radius: 12px;
   --max-width: 980px;
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
   --serif: "Ibarra Real Nova", "Georgia", serif;
   --sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  --grain-image: url('img/grain.png'); /* optional grain file in /img */
+  /* use the generated local texture for quick preview */
+  --grain-image: url('/mnt/data/A_digital_texture_of_a_dark_surface_is_displayed_i.png');
 }
 
-/* base */
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:var(--sans);background:
-  radial-gradient(1200px 500px at 10% 10%, rgba(224,122,46,0.03), transparent 6%),
+  radial-gradient(1200px 500px at 10% 10%, rgba(224,122,46,0.02), transparent 6%),
   var(--bg-ink);
-color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 body{display:flex;justify-content:center;padding:2.5rem}
 
-/* container */
 .container{width:100%;max-width:var(--max-width);padding:0 1rem}
 
-/* general card / main */
+/* main card */
 main{
   position:relative;
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
@@ -46,7 +44,7 @@ main{
   border:1px solid rgba(255,255,255,0.02);
 }
 
-/* subtle grain overlay using image (if present at img/grain.png) */
+/* grain overlay (very subtle) */
 main::after{
   content:"";
   position:absolute; inset:0; pointer-events:none;
@@ -57,25 +55,9 @@ main::after{
   border-radius:inherit;
 }
 
-/* header */
-header h1{font-family:var(--serif);font-weight:600;margin:0 0 .25rem;font-size:1.75rem;letter-spacing:0.7px}
-header p{margin:0;color:var(--muted);font-size:0.95rem}
-
-/* nav */
+/* simple nav/footer defaults (kept minimal) */
 nav ul{list-style:none;padding:0;margin:.75rem 0 0;display:flex;gap:.75rem;align-items:center}
 nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.95rem;opacity:.95}
 nav a:hover{color:var(--text);text-decoration:none}
 
-/* answer panel (kept for compatibility) */
-#answer{margin-top:1.1rem;min-height:140px;padding:1rem;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
-.answer-pre{white-space:pre-wrap;font-family:var(--mono);font-size:0.98rem;line-height:1.5;color:var(--text)}
-.answer-meta{display:flex;gap:.5rem;align-items:center;color:var(--muted);font-size:.88rem;margin-bottom:.5rem}
-
-/* footer */
 footer{margin-top:.9rem;color:var(--muted);font-size:.85rem;text-align:center}
-
-/* small responsive */
-@media (max-width:640px){
-  header h1{font-size:1.4rem}
-  nav ul{flex-wrap:wrap;gap:.5rem}
-}
