@@ -18,7 +18,7 @@
             Practical tips, lore, and whispered secrets.
           </p>
           <div class="hero-cta">
-            <a class="btn primary" href="#ask">Ask the Ancient</a>
+            <a class="btn primary" href="#persona-cards">Choose a Persona</a>
             <a class="btn ghost" href="https://discord.gg/YOUR_PERMANENT_INVITE" id="discord-link">
               <img class="icon" src="img/discord.png" alt="" aria-hidden="true"> Join Kindle Circle
             </a>
@@ -34,7 +34,7 @@
     <!-- NAV -->
     <nav>
       <ul>
-        <li><a href="#ask">Ask</a></li>
+        <li><a href="#persona-cards">Ask</a></li>
         <li><a href="/guides">Guides</a></li>
         <li><a href="mailto:contact@embers.example">Email</a></li>
       </ul>
@@ -43,7 +43,7 @@
     <!-- MAIN -->
     <main>
       <!-- Persona cards -->
-      <section class="persona-cards" aria-label="Choose persona">
+      <section id="persona-cards" class="persona-cards" aria-label="Choose persona">
         <article class="persona card" data-persona="ancient_dragon" tabindex="0">
           <div class="persona-icon"><img src="img/dragon.png" alt="Ancient Dragon"></div>
           <h3>Ancient Dragon</h3>
@@ -77,30 +77,17 @@
 
       <hr class="hr-subtle">
 
-      <!-- Ask form -->
-      <section id="ask">
-        <h2>Ask the Ancient</h2>
-        <form action="/ask" method="post" novalidate>
-          <label for="persona">Persona</label>
-          <select id="persona" name="persona">
-            <option value="ancient_dragon">Ancient Dragon</option>
-            <option value="old_knight">Old Knight</option>
-            <option value="mystic_seer">Mystic Seer</option>
-          </select>
-
-          <label for="question">Question</label>
-          <textarea id="question" name="question" rows="6" cols="60" placeholder="e.g. How do I clear the fog gate in Ashen Hollow?" required></textarea>
-
-          <div class="controls" style="margin-top:.6rem">
-            <button type="submit" class="btn primary">Ask</button>
-            <button type="button" id="random-tip" class="btn ghost">Random Tip</button>
+      <!-- CHAT container: empty initially, will be populated when Select is clicked -->
+      <section id="chat" aria-live="polite" class="card" style="min-height:260px;">
+        <div id="chat-placeholder" class="center" style="padding:2rem;color:var(--muted)">
+          <div>
+            <p style="margin:0 0 .6rem; font-weight:600;">Pick a persona to begin</p>
+            <p style="margin:0">Click <strong>Select</strong> on any persona card and the conversation will open here.</p>
           </div>
-        </form>
+        </div>
       </section>
 
-      <section id="answer" aria-live="polite">
-        <!-- answers appear here -->
-      </section>
+      <section id="answer" aria-hidden="true"></section>
     </main>
 
     <footer>
