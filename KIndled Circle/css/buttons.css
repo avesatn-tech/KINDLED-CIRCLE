@@ -1,4 +1,4 @@
-/* buttons.css — header/nav/cta */
+/* buttons.css — header/nav/cta and buttons */
 
 .controls{display:flex;gap:.6rem;align-items:center}
 .btn{cursor:pointer;font-weight:700;font-size:.95rem;padding:.45rem .85rem;border-radius:10px;border:0;transition:transform .12s ease, box-shadow .15s ease}
@@ -15,7 +15,7 @@
 /* header links: no underline */
 nav a, .hero-cta a, a{ text-decoration:none; color:inherit; }
 
-/* link hover gold seam effect */
+/* nav underline animation */
 nav a::after{
   content:"";
   display:block;
