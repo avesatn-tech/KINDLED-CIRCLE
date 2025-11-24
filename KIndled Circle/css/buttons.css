@@ -16,20 +16,14 @@
 /* small variants */
 .btn.small{padding:.35rem .6rem;font-size:.86rem}
 
-/* inline icon rules (PNG or SVG files in /img) */
-.icon{
-  width:18px;
-  height:18px;
-  vertical-align:middle;
-  margin-right:.5rem;
-  display:inline-block;
-  object-fit:contain;
-  filter:none;
-}
+/* inline icon rules (PNG or SVG files in /img or local path) */
+.icon{width:18px;height:18px;vertical-align:middle;margin-right:.5rem;display:inline-block;object-fit:contain;filter:none}
 
 /* discord CTA specific tweak */
-#discord-link .icon { width:18px; height:18px; margin-right:.5rem; vertical-align:middle; filter:none; }
+#discord-link .icon{width:18px;height:18px;margin-right:.5rem;vertical-align:middle;filter:none}
 
-/* if you later inline SVGs and want hover tinting:
-#discord-link:hover img { filter: drop-shadow(0 6px 14px rgba(224,122,46,0.12)); }
-*/
+/* remove underline for links inside header & nav (explicit) */
+nav a, .hero-cta a, a{ text-decoration:none; color:inherit; }
+
+/* subtle focus outline for keyboard users */
+a:focus, button:focus, .persona.card:focus{outline: 3px solid rgba(224,122,46,0.06); outline-offset:2px}
