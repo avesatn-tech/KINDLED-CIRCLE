@@ -16,7 +16,7 @@
 /* small variants */
 .btn.small{padding:.35rem .6rem;font-size:.86rem}
 
-/* inline icon rules (PNG or SVG files in /img or local path) */
+/* inline icon rules (PNG or SVG files in /img) */
 .icon{width:18px;height:18px;vertical-align:middle;margin-right:.5rem;display:inline-block;object-fit:contain;filter:none}
 
 /* discord CTA specific tweak */
