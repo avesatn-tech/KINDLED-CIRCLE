@@ -1,0 +1,34 @@
+/* animations.css — ember particles, spinner, typewriter, fades */
+
+/* ember particle layer */
+.ember-layer{pointer-events:none;position:absolute;inset:0;z-index:0;overflow:hidden}
+
+/* ember */
+.ember{
+  position:absolute;
+  width:6px;height:6px;border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, #fff, var(--accent) 40%, rgba(224,122,46,0.12) 70%);
+  box-shadow: 0 0 10px rgba(224,122,46,0.7);
+  opacity:0;transform:translateY(0) scale(0.6);
+  animation: ember-float linear forwards;
+}
+@keyframes ember-float{
+  0%{transform:translateY(20px) scale(.6);opacity:0;filter:blur(.6px)}
+  10%{opacity:1}
+  70%{opacity:.85;transform:translateY(-120px) scale(1.05)}
+  100%{transform:translateY(-220px) scale(1.2);opacity:0;filter:blur(1.6px)}
+}
+
+/* spinner */
+.spinner{width:30px;height:30px;border-radius:50%;border:3px solid rgba(255,255,255,0.06);border-top-color:var(--accent);animation:spin 1s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* typewriter */
+.typewriter{display:inline-block;overflow:hidden;white-space:pre-wrap;border-right:.12em solid rgba(255,255,255,0.06)}
+.typewriter.done{border-right:0}
+.fade-in{animation:fadeIn .36s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* subtle glow pulse for answers */
+.answer-pre{transition: box-shadow .25s ease}
+.answer-pre:hover{box-shadow: 0 8px 30px rgba(224,122,46,0.06)}
