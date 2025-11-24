@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -70,23 +70,28 @@
         </article>
       </section>
 
+      <!-- Decorative Sigward sits here (directly after persona-cards) -->
+      <!-- Using the session-local path for preview: /mnt/data/sigward.png -->
+      <div class="decor-sigward-wrap" aria-hidden="true">
+        <img class="decor-sigward bob" src="/mnt/data/sigward.png" alt="Sigward decorative">
+      </div>
+
       <hr class="hr-subtle">
+
+      <!-- Pick a persona hint -->
+      <section class="card" id="pick-hint" style="min-height:220px;">
+        <div style="padding:2rem;color:var(--muted)">
+          <h3 style="margin:0 0 .6rem;font-weight:600;">Pick a persona to begin</h3>
+          <p style="margin:0">Click <strong>Select</strong> on any persona card and the conversation will open here.</p>
+        </div>
+      </section>
 
       <!-- CHAT container -->
       <section id="chat" aria-live="polite" class="card" style="min-height:260px;">
         <div id="chat-placeholder" class="center" style="padding:2rem;color:var(--muted)">
-          <div>
-            <p style="margin:0 0 .6rem; font-weight:600;">Pick a persona to begin</p>
-            <p style="margin:0">Click <strong>Select</strong> on any persona card and the conversation will open here.</p>
-          </div>
+          <!-- chat will render here after selecting persona -->
         </div>
       </section>
-
-      <!-- Decorative Sigward PNG: sits on persona-cards block -->
-      <!-- IMPORTANT: put your Sigward PNG at img/sigward.png (transparent background) -->
-      <div class="decor-sigward-wrap" aria-hidden="true">
-        <img class="decor-sigward" src="img/sigward.png" alt="Sigward decorative">
-      </div>
 
     </main>
 
@@ -98,4 +103,3 @@
   <script type="module" src="main.js"></script>
 </body>
 </html>
-
