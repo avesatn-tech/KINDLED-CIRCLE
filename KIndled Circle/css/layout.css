@@ -1,6 +1,6 @@
-/* layout.css — full replacement
-   Header, persona cards, sigward-in-corner, responsive behavior.
-   Images expected in root: img/*.png
+/* css/layout.css — full replacement
+   Header, persona cards, sigward-floating above header, responsive behavior.
+   Images must be in root img/ (img/sigward.png, img/ember.png, etc.).
 */
 
 /* ---- root sizing vars (keep synced with main.css) ---- */
@@ -13,12 +13,34 @@
   --emblem-wrap: calc(var(--emblem-size) * 1.6);
 }
 
-/* ---- global container / main card ---- */
-.container{width:100%;max-width:980px;margin:0 auto;padding:2.5rem 1rem}
-main{position:relative;background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:1.25rem;box-shadow:0 10px 30px rgba(0,0,0,0.65);border:1px solid rgba(255,255,255,0.02);overflow:hidden}
+/* ---- container / main card ---- */
+.container{
+  width:100%;
+  max-width:980px;
+  margin:0 auto;
+  padding:2.5rem 1rem;
+  position: relative; /* CRITICAL: sigward-floating is positioned relative to .container */
+}
+main{
+  position:relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:12px;
+  padding:1.25rem;
+  box-shadow:0 10px 30px rgba(0,0,0,0.65);
+  border:1px solid rgba(255,255,255,0.02);
+  overflow:hidden;
+}
 
-/* subtle grain overlay — requires img/grain.png present */
-main::after{content:"";position:absolute;inset:0;pointer-events:none;background-image: url('img/grain.png');background-size:cover;opacity:0.03;mix-blend-mode:overlay;border-radius:inherit}
+/* subtle grain overlay — optional: requires img/grain.png */
+main::after{
+  content:"";
+  position:absolute; inset:0; pointer-events:none;
+  background-image: url('img/grain.png');
+  background-size:cover;
+  opacity:0.03;
+  mix-blend-mode:overlay;
+  border-radius:inherit;
+}
 
 /* ---- HERO ---- */
 .hero{
@@ -30,7 +52,7 @@ main::after{content:"";position:absolute;inset:0;pointer-events:none;background-
   display:flex;
   align-items:center;
   justify-content:space-between;
-  position:relative; /* important for absolute sigward */
+  position:relative;
   z-index:5;
   background: rgba(12,12,12, 0.18);
   box-shadow: 0 12px 36px rgba(0,0,0,0.6);
@@ -63,8 +85,6 @@ main::after{content:"";position:absolute;inset:0;pointer-events:none;background-
 /* title + lead */
 .site-title{font-family:var(--serif, Georgia, serif);font-size:var(--title-size);margin:0 0 .2rem 0;letter-spacing:.6px;color:var(--text, #e8eef2);line-height:1.02}
 .hero-lead{margin:0 0 .45rem 0;color:var(--muted, #9aa0a6);max-width:60ch;font-size:var(--lead-size)}
-
-/* hero CTA row */
 .hero-cta{display:flex;gap:.6rem;align-items:center}
 
 /* ---- EMBLEM (kept subtle) ---- */
@@ -99,33 +119,32 @@ main::after{content:"";position:absolute;inset:0;pointer-events:none;background-
 #messages{max-height:420px;overflow:auto;padding:.25rem}
 #chat-input{resize:vertical;min-height:56px;padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text, #e8eef2)}
 
-/* ==== SIGWARD (sitting on top-right corner of header) ==== */
-/* wrapper must live inside .hero so its absolute positioning references header */
-.sigward-corner-wrap{
-  position:absolute;
-  top: -42px;          /* how much it sits ON the corner */
-  right: -12px;        /* how far it nudges outside the hero */
-  pointer-events:none; /* decorative only */
-  z-index:60;
+/* ==== SIGWARD FLOATING (outside header) ==== */
+/* .sigward-floating is placed BEFORE the header in DOM and absolutely positioned relative to .container */
+.sigward-floating{
+  position: absolute;
+  top: -42px;    /* raised high — variant 3 */
+  right: 12px;   /* inside container's right edge */
+  z-index:999;
+  pointer-events:none;
   overflow:visible;
 }
 
-/* image itself — strict responsive constraints */
-.sigward-corner{
+.sigward-floating-img{
   width: clamp(80px, 12vw, 160px);
   height: auto;
   object-fit: contain;
-  transform-origin: center bottom;
-  filter: drop-shadow(0 6px 16px rgba(0,0,0,0.65));
-  opacity: 1;
   display:block;
+  transform-origin: center bottom;
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.6));
+  opacity:1;
 }
 
-/* optional bob animation class — `.bob` toggles soft breathing */
-.sigward-corner.bob{animation: sigwardBob 3.8s ease-in-out infinite}
+/* soft bob animation */
+.sigward-floating-img.bob{animation: sigwardBob 3.8s ease-in-out infinite}
 @keyframes sigwardBob{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
 
-/* responsive adjustments */
+/* responsive behavior */
 @media (max-width:900px){
   .persona-cards{grid-template-columns:repeat(2,1fr);gap:.9rem}
 }
@@ -145,13 +164,12 @@ main::after{content:"";position:absolute;inset:0;pointer-events:none;background-
   .hero-logo-wrap{width:var(--emblem-wrap);height:var(--emblem-wrap);border-radius:12px}
   .hero::after{ right: calc(var(--emblem-wrap) + var(--h-gap)); }
 
-  /* personas stack vertically on small screens */
+  /* personas stack vertically */
   .persona-cards{grid-template-columns:1fr;gap:1rem;margin:1rem 0;padding:0}
   .persona.card{min-height:170px;padding:1.1rem;border-radius:14px}
   .card-actions{justify-content:flex-start;gap:.6rem}
 
-  /* sigward smaller and closer to corner */
-  .sigward-corner-wrap{top:-10px;right:-8px}
-  .sigward-corner{width: clamp(60px, 18vw, 120px)}
+  /* sigward smaller and closer to corner on mobile */
+  .sigward-floating{top:-22px;right:8px}
+  .sigward-floating-img{width: clamp(60px, 18vw, 120px)}
 }
-
