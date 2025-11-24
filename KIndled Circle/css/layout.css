@@ -1,178 +1,170 @@
-/* css/layout.css — full replacement
-   Header, persona cards, sigward-floating above header (fixed small size), responsive behavior.
-   Images expected in root: img/*.png (sigward currently using session preview path).
-*/
+/* ===========================
+   Global layout
+=========================== */
 
-/* ---- root sizing vars ---- */
-:root{
+:root {
   --h-pad: clamp(12px, 2.2vw, 22px);
   --h-gap: clamp(12px, 2.4vw, 28px);
   --title-size: clamp(22px, 4.4vw, 40px);
   --lead-size: clamp(13px, 2.1vw, 16px);
   --emblem-size: clamp(48px, 8vw, 96px);
   --emblem-wrap: calc(var(--emblem-size) * 1.6);
+  --text: #e8eef2;
+  --muted: #9aa0a6;
 }
 
-/* ---- container / main card ---- */
-.container{
-  width:100%;
-  max-width:980px;
-  margin:0 auto;
-  padding:2.5rem 1rem;
-  position: relative; /* CRITICAL: sigward-floating is positioned relative to .container */
-}
-main{
-  position:relative;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius:12px;
-  padding:1.25rem;
-  box-shadow:0 10px 30px rgba(0,0,0,0.65);
-  border:1px solid rgba(255,255,255,0.02);
-  overflow:hidden;
+.container {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem;
+  position: relative;
 }
 
-/* optional subtle grain overlay (requires img/grain.png) */
-main::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background-image: url('img/grain.png');
-  background-size:cover;
-  opacity:0.03;
-  mix-blend-mode:overlay;
-  border-radius:inherit;
+main {
+  position: relative;
+  background: rgba(255,255,255,0.02);
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 1px solid rgba(255,255,255,0.02);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.65);
 }
 
-/* ---- HERO ---- */
-.hero{
+/* ===========================
+   Header (hero)
+=========================== */
+
+.hero {
   width: calc(100% + 2rem);
   margin-left: -1rem;
   margin-right: -1rem;
-  padding: calc(var(--h-pad)) calc(var(--h-pad) * 1.25);
+  padding: var(--h-pad);
   border-radius: 14px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  position:relative;
-  z-index:5;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   background: rgba(12,12,12, 0.18);
-  box-shadow: 0 12px 36px rgba(0,0,0,0.6);
   border: 1px solid rgba(255,255,255,0.02);
-  backdrop-filter: blur(6px) saturate(1.05);
-  -webkit-backdrop-filter: blur(6px) saturate(1.05);
-  overflow:visible;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
 }
 
-/* decorative seam under header (stops before emblem) */
-.hero::after{
-  content: "";
-  position: absolute;
-  left: calc(var(--h-pad) * 1.25);
-  right: calc(var(--emblem-wrap) + (var(--h-gap)));
-  bottom: -10px;
-  height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, rgba(224,122,46,0) 0%, rgba(224,122,46,0.18) 40%, rgba(224,122,46,0.25) 50%, rgba(224,122,46,0.18) 60%, rgba(224,122,46,0) 100%);
-  filter: blur(8px);
-  opacity:0.9;
-  pointer-events:none;
+.hero-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--h-gap);
+  width: 100%;
 }
 
-/* hero inner layout */
-.hero-inner{display:flex;align-items:center;gap:var(--h-gap);width:100%}
-.hero-left{flex:1;min-width:0}
-.hero-right{width:var(--emblem-wrap);display:flex;align-items:center;justify-content:center;padding-left:calc(var(--h-gap) / 2)}
+.hero-left {
+  flex: 1;
+}
 
-/* title + lead */
-.site-title{font-family:var(--serif, Georgia, serif);font-size:var(--title-size);margin:0 0 .2rem 0;letter-spacing:.6px;color:var(--text, #e8eef2);line-height:1.02}
-.hero-lead{margin:0 0 .45rem 0;color:var(--muted, #9aa0a6);max-width:60ch;font-size:var(--lead-size)}
-.hero-cta{display:flex;gap:.6rem;align-items:center}
+.site-title {
+  font-size: var(--title-size);
+  margin: 0 0 .2rem;
+  color: var(--text);
+}
 
-/* ---- EMBLEM (subtle) ---- */
-.hero-logo-wrap{
+.hero-lead {
+  margin: 0 0 .5rem;
+  color: var(--muted);
+  font-size: var(--lead-size);
+}
+
+.hero-right {
+  width: var(--emblem-wrap);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-logo-wrap {
   width: var(--emblem-wrap);
   height: var(--emblem-wrap);
-  border-radius:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background: linear-gradient(180deg, rgba(255,255,255,0.005), rgba(255,255,255,0.00));
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.02);
   box-shadow: 0 20px 40px rgba(0,0,0,0.55);
-  border:1px solid rgba(255,255,255,0.02);
-  position: relative;
-  overflow:hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.hero-logo-wrap::after{content:"";position:absolute;inset:10px;border-radius:10px;pointer-events:none;border:1px solid rgba(224,122,46,0.08);mix-blend-mode:screen;opacity:0.95}
-.hero-spark{width:var(--emblem-size);height:var(--emblem-size);object-fit:contain;display:block;filter:drop-shadow(0 18px 36px rgba(224,122,46,0.12));background:transparent}
 
-/* ---- PERSONA CARDS ---- */
-.persona-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;padding-top:0.25rem;z-index:2;overflow:visible}
-.persona.card{background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border-radius:12px;padding:1rem;border:1px solid rgba(255,255,255,0.02);box-shadow:0 8px 20px rgba(0,0,0,0.6);transition: transform .16s ease, box-shadow .18s ease, border-color .16s ease;display:flex;flex-direction:column;gap:.6rem;align-items:flex-start;cursor:pointer;min-height:150px}
-.persona.card:focus, .persona.card:hover{transform:translateY(-6px);box-shadow: 0 18px 40px rgba(0,0,0,0.7);border-color: rgba(224,122,46,0.12)}
-.persona-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:10px;background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(224,122,46,0.02));border:1px solid rgba(255,255,255,0.02);box-shadow: inset 0 -2px 6px rgba(0,0,0,0.25)}
-.persona-icon img{width:40px;height:40px;object-fit:contain;display:block}
-.persona h3{margin:0;font-size:1.05rem}
-.persona-desc{margin:0;color:var(--muted, #9aa0a6);font-size:.92rem}
-.card-actions{margin-top:auto;display:flex;gap:.5rem;width:100%;justify-content:flex-end}
+.hero-spark {
+  width: var(--emblem-size);
+  height: var(--emblem-size);
+  object-fit: contain;
+}
 
-/* ---- CHAT tweaks ---- */
-#chat .card{padding:.6rem;margin-bottom:.6rem}
-#messages{max-height:420px;overflow:auto;padding:.25rem}
-#chat-input{resize:vertical;min-height:56px;padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text, #e8eef2)}
+/* ===========================
+   Persona cards
+=========================== */
 
-/* ==== SIGWARD FLOATING (fixed size, cannot grow) ==== */
-/* .sigward-floating is placed BEFORE the header and absolutely positioned relative to .container */
-.sigward-floating{
+.persona-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.persona.card {
+  background: rgba(255,255,255,0.02);
+  border-radius: 12px;
+  padding: 1rem;
+
+  border: 1px solid rgba(255,255,255,0.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  cursor: pointer;
+}
+
+.persona-icon img {
+  width: 40px;
+  height: 40px;
+}
+
+/* ===========================
+   Sigward (floating mascot)
+=========================== */
+
+.sigward-floating {
   position: absolute;
-  top: -48px;    /* slightly higher for better overlap */
+  top: -48px;
   right: 12px;
-  z-index:999;
-  pointer-events:none;
-  overflow:visible;
+  z-index: 999;
+  pointer-events: none;
 }
 
-/* FIX: use fixed pixel width to prevent full-bleed */
-.sigward-floating-img{
-  display:block;
-  width: 140px;        /* fixed sensible size so it never explodes */
+.sigward-floating-img {
+  display: block;
+  width: 70px;     /* ← REDUCED SIZE */
   height: auto;
   object-fit: contain;
-  transform-origin: center bottom;
   filter: drop-shadow(0 8px 18px rgba(0,0,0,0.6));
-  opacity:1;
 }
 
-/* soft bob animation */
-.sigward-floating-img.bob{animation: sigwardBob 3.8s ease-in-out infinite}
-@keyframes sigwardBob{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
-
-/* responsive behavior */
-@media (max-width:900px){
-  .persona-cards{grid-template-columns:repeat(2,1fr);gap:.9rem}
-}
-@media (max-width:720px){
-  :root{
-    --h-pad: clamp(10px, 3vw, 14px);
-    --h-gap: clamp(10px, 3.4vw, 16px);
-    --title-size: clamp(20px, 6vw, 28px);
-    --lead-size: clamp(12px, 2.8vw, 14px);
-    --emblem-size: clamp(40px, 10vw, 60px);
-    --emblem-wrap: calc(var(--emblem-size) * 1.5);
+/* mobile version */
+@media (max-width: 720px) {
+  .sigward-floating {
+    top: -28px;
+    right: 10px;
   }
 
-  .hero{width:100%;margin-left:0;margin-right:0;border-radius:12px;padding:14px}
-  .hero-inner{flex-direction:column;align-items:flex-start;gap:.85rem}
-  .hero-right{width:100%;display:flex;justify-content:center;padding-left:0;margin-top:4px}
-  .hero-logo-wrap{width:var(--emblem-wrap);height:var(--emblem-wrap);border-radius:12px}
-  .hero::after{ right: calc(var(--emblem-wrap) + var(--h-gap)); }
+  .sigward-floating-img {
+    width: 45px;   /* ← also reduced */
+  }
 
-  /* personas stack vertically */
-  .persona-cards{grid-template-columns:1fr;gap:1rem;margin:1rem 0;padding:0}
-  .persona.card{min-height:170px;padding:1.1rem;border-radius:14px}
-  .card-actions{justify-content:flex-start;gap:.6rem}
+  .persona-cards {
+    grid-template-columns: 1fr;
+  }
 
-  /* mobile: smaller sigward and closer to corner */
-  .sigward-floating{top:-26px; right:8px}
-  .sigward-floating-img{width: 90px}
+  .hero-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
