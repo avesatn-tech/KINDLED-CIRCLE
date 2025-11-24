@@ -1,10 +1,9 @@
-/* layout.css — header, persona cards, chat tweaks
-   Updated: Remove all logo borders, frames and shadows; keep proportional header behavior.
-   Note: grain preview file available at /mnt/data/A_digital_texture_of_a_dark_surface_is_displayed_i.png
+/* layout.css — header, persona cards and decorative Sigward placement
+   Full replacement: includes Sigward "sits on block" rules and mobile behavior.
 */
 
+/* sizing variables (kept in sync with main.css) */
 :root{
-  /* Keep these in sync with main.css if you change sizing */
   --h-pad: clamp(12px, 2.2vw, 22px);
   --h-gap: clamp(12px, 2.4vw, 28px);
   --title-size: clamp(22px, 4.4vw, 40px);
@@ -13,7 +12,7 @@
   --emblem-wrap: calc(var(--emblem-size) * 1.6);
 }
 
-/* HERO: proportional, fluid */
+/* HERO (unchanged from previous proportional header) */
 .hero{
   width: calc(100% + 2rem);
   margin-left: -1rem;
@@ -32,8 +31,6 @@
   -webkit-backdrop-filter: blur(6px) saturate(1.05);
   overflow:visible;
 }
-
-/* gold seam under header (stops before emblem) */
 .hero::after{
   content: "";
   position: absolute;
@@ -47,69 +44,15 @@
   opacity:0.9;
   pointer-events:none;
 }
-
-/* inner layout uses the same gap variable */
 .hero-inner{display:flex;align-items:center;gap:var(--h-gap);width:100%}
 .hero-left{flex:1;min-width:0}
 .hero-right{width:var(--emblem-wrap);display:flex;align-items:center;justify-content:center;padding-left:calc(var(--h-gap) / 2);}
 
-/* title + lead scale with clamp */
-.site-title{
-  font-family:var(--serif);
-  font-size: var(--title-size);
-  margin:0 0 .2rem 0;
-  letter-spacing:.6px;
-  color:var(--text);
-  line-height:1.02;
-}
-.hero-lead{
-  margin:0 0 .45rem 0;
-  color:var(--muted);
-  max-width:60ch;
-  font-size:var(--lead-size);
-}
+/* site title + lead */
+.site-title{font-family:var(--serif);font-size: var(--title-size);margin:0 0 .2rem 0;letter-spacing:.6px;color:var(--text);line-height:1.02}
+.hero-lead{margin:0 0 .45rem 0;color:var(--muted);max-width:60ch;font-size:var(--lead-size)}
 
-/* CTA row */
-.hero-cta{display:flex;gap:.6rem;align-items:center}
-
-/* -------------------------------
-   EMBLEM: CLEAN, NO BORDERS/TINTS
-   -------------------------------
-   We remove boxes, borders, shadows and inner rings.
-   Only the PNG symbol itself (hero-spark) will remain visible.
-*/
-.hero-logo-wrap{
-  width: var(--emblem-wrap);
-  height: var(--emblem-wrap);
-  border-radius: 0;                 /* remove heavy rounded panel look */
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background: transparent;          /* no background panel */
-  box-shadow: none;                 /* remove outer shadow */
-  border: none;                     /* remove border */
-  position: relative;
-  overflow: visible;                /* allow the PNG to show naturally */
-}
-
-/* remove any decorative pseudo-element */
-.hero-logo-wrap::after{
-  display: none;
-  content: none;
-}
-
-/* the PNG itself — no filter, no drop-shadow, neutral presentation */
-.hero-spark{
-  width: var(--emblem-size);
-  height: var(--emblem-size);
-  object-fit:contain;
-  display:block;
-  filter: none !important;
-  background: transparent;
-  transform: none;
-}
-
-/* Persona cards styling (desktop grid) */
+/* persona grid baseline */
 .persona-cards{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -117,10 +60,8 @@
   margin:1rem 0;
   padding-top:0.25rem;
   z-index:2;
-  overflow:visible; /* allow card shadows to show outside */
+  overflow:visible;
 }
-
-/* card baseline */
 .persona.card{
   background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
   border-radius:12px;
@@ -135,58 +76,78 @@
   cursor:pointer;
   min-height:150px;
 }
-
-/* hover/focus */
-.persona.card:focus, .persona.card:hover{
-  transform:translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.7);
-  border-color: rgba(224,122,46,0.12);
-}
-
-.persona-icon{
-  width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:10px;background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(224,122,46,0.02));border:1px solid rgba(255,255,255,0.02);box-shadow: inset 0 -2px 6px rgba(0,0,0,0.25);
-}
+.persona.card:focus, .persona.card:hover{transform:translateY(-6px);box-shadow: 0 18px 40px rgba(0,0,0,0.7);border-color: rgba(224,122,46,0.12)}
+.persona-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:10px;background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(224,122,46,0.02));border:1px solid rgba(255,255,255,0.02);box-shadow: inset 0 -2px 6px rgba(0,0,0,0.25)}
 .persona-icon img{width:40px;height:40px;object-fit:contain;display:block;filter:none}
 .persona h3{margin:0;font-size:1.05rem}
 .persona-desc{margin:0;color:var(--muted);font-size:.92rem}
 .card-actions{margin-top:auto;display:flex;gap:.5rem;width:100%;justify-content:flex-end}
-.persona.card.selected{outline:none;border-color: rgba(224,122,46,0.18);box-shadow: 0 18px 40px rgba(224,122,46,0.06);}
+.persona.card.selected{outline:none;border-color: rgba(224,122,46,0.18);box-shadow: 0 18px 40px rgba(224,122,46,0.06)}
 
-/* chat tweaks */
+/* CHAT tweaks */
 #chat .card{padding:.6rem;margin-bottom:.6rem}
 #messages{max-height:420px;overflow:auto;padding:.25rem}
 #chat-input{resize:vertical;min-height:56px;padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
 
-/* RESPONSIVE: stack personas vertically and move logo under text on small screens */
-@media (max-width:900px){
-  .persona-cards{grid-template-columns:repeat(2,1fr);gap:.9rem}
+/* ========== SIGWARD DECOR ========== */
+/* The wrapper sits after main content and is positioned so the PNG appears to sit on persona-cards.
+   Desktop: sits to the right-bottom of persona area; Mobile: centered under persona area.
+   Use a transparent PNG at img/sigward.png (recommended sizes: 400–900px width, trimmed). */
+
+.decor-sigward-wrap{
+  position: relative;
+  width: 100%;
+  pointer-events: none; /* decorative only */
+  margin-top: -36px; /* lift upwards so Sigward appears sitting on top of block edge */
+  display:flex;
+  justify-content:flex-end;
+  z-index:4;
+  padding-right: calc(var(--emblem-wrap) * 0.08); /* nudge away from right edge */
 }
+
+/* image itself */
+.decor-sigward{
+  width: 320px;                 /* default desktop visual size */
+  max-width: 36%;
+  height: auto;
+  display:block;
+  transform-origin: center bottom;
+  will-change: transform, opacity;
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  animation: sigwardIn .6s cubic-bezier(.2,.9,.3,1) forwards .15s;
+}
+
+/* small slow bob (weeping / low mumble) */
+.decor-sigward.bob {
+  animation: sigwardBob 3.6s ease-in-out infinite;
+}
+
+/* hover subtle lift (if pointer events enabled later) */
+.decor-sigward:hover{
+  transform: translateY(-4px) scale(1.01);
+}
+
+/* entry animation and bob */
+@keyframes sigwardIn{
+  to{ opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes sigwardBob{
+  0%{ transform: translateY(0) scale(1); }
+  50%{ transform: translateY(-6px) scale(1.002); }
+  100%{ transform: translateY(0) scale(1); }
+}
+
+/* responsive: on smaller screens push to center and reduce size, remove negative margin */
 @media (max-width:720px){
-  :root{
-    --h-pad: clamp(10px, 3vw, 14px);
-    --h-gap: clamp(10px, 3.4vw, 16px);
-    --title-size: clamp(20px, 6vw, 28px);
-    --lead-size: clamp(12px, 2.8vw, 14px);
-    --emblem-size: clamp(40px, 10vw, 60px);
-    --emblem-wrap: calc(var(--emblem-size) * 1.5);
+  .decor-sigward-wrap{
+    justify-content:center;
+    margin-top: 8px;
+    padding-right: 0;
   }
-
-  /* header becomes column; emblem moves under text (centered) */
-  .hero{width:100%;margin-left:0;margin-right:0;border-radius:12px;padding:14px}
-  .hero-inner{flex-direction:column;align-items:flex-start;gap:.85rem}
-  .hero-right{width:100%;display:flex;justify-content:center;padding-left:0;margin-top:4px}
-  .hero-logo-wrap{width:var(--emblem-wrap);height:var(--emblem-wrap);border-radius:12px;overflow:visible}
-  .hero::after{ right: calc(var(--emblem-wrap) + var(--h-gap)); }
-
-  /* stack personas vertically — single column */
-  .persona-cards{
-    grid-template-columns: 1fr;
-    gap:1rem;
-    margin: 1rem 0;
-    padding: 0;
+  .decor-sigward{
+    width: calc(var(--emblem-size) * 2.2);
+    max-width: 60%;
+    animation-delay: .06s;
   }
-
-  /* slightly larger cards and more vertical spacing on mobile */
-  .persona.card{min-height:170px;padding:1.1rem;border-radius:14px}
-  .card-actions{justify-content:flex-start;gap:.6rem}
 }
