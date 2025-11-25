@@ -138,7 +138,6 @@ main {
   right: 12px;
   z-index: 999;
   pointer-events: none;
-  margin-bottom: 70px;
 }
 
 .sigward-floating-img {
@@ -169,6 +168,7 @@ main {
     align-items: flex-start;
   }
 }
+
 
 
 
