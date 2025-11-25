@@ -90,7 +90,6 @@
 
   /* larger padding and vertical spacing so Sigward can sit on it */
   padding: 14px 24px;
-  margin-top: 28px;
   margin-bottom: 34px;
 
   border-radius: 14px;
@@ -163,3 +162,4 @@
 .hero { padding-bottom: 3.25rem; } /* give extra bottom padding to hero so sigward sits nicely */
 
 /* End of buttons.css */
+
