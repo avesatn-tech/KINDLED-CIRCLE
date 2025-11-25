@@ -152,7 +152,7 @@ main {
 @media (max-width: 720px) {
   .sigward-floating {
     top: 170px;
-    right: 10px;
+    right: 30px;
   }
 
   .sigward-floating-img {
@@ -168,6 +168,7 @@ main {
     align-items: flex-start;
   }
 }
+
 
 
 
