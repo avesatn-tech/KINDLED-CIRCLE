@@ -134,7 +134,7 @@ main {
 
 .sigward-floating {
   position: absolute;
-  top: 300px;
+  top: 250px;
   right: 12px;
   z-index: 999;
   pointer-events: none;
@@ -168,6 +168,7 @@ main {
     align-items: flex-start;
   }
 }
+
 
 
 
