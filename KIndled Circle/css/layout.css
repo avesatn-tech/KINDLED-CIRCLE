@@ -38,7 +38,7 @@ main {
   width: calc(100% + 2rem);
   margin-left: -1rem;
   margin-right: -1rem;
-  padding: 
+  padding: var(--h-pad);
   border-radius: 14px;
 
   display: flex;
@@ -169,6 +169,7 @@ main {
     align-items: flex-start;
   }
 }
+
 
 
 
