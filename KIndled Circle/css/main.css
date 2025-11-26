@@ -27,11 +27,12 @@ body{
   display:flex;
   align-items:center;
   gap:16px;
+  justify-content:space-between;
 }
 .brand{display:flex;align-items:center;gap:12px}
 .logo{width:56px;height:56px;object-fit:contain}
 .site-header h1{margin:0;font-size:24px;letter-spacing:1px}
-.tagline{margin:0;color:var(--muted);font-size:13px}
+.tagline{max-width:var(--max-width);margin:0 auto 18px;color:var(--muted);font-size:13px;text-align:center}
 
 .container{
   max-width:var(--max-width);
@@ -76,6 +77,22 @@ body{
 
 .help{margin-top:18px;color:var(--muted);font-size:13px}
 .inline-icon{width:18px;height:18px;vertical-align:middle;margin-left:6px}
+
+/* top discord button */
+.discord-button {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:10px;
+  background:linear-gradient(180deg,#5865F2,#4352D9);
+  color:white;
+  font-weight:600;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.discord-button img { width:18px;height:18px; }
 
 /* Modal */
 .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:22px;backdrop-filter: blur(6px);background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.6))}
@@ -141,12 +158,6 @@ body{
 
 .modal-footer{padding:10px 14px;border-top:1px solid rgba(255,255,255,0.02);color:var(--muted);font-size:12px}
 
-/* small screens */
-@media (max-width:520px){
-  .avatar{width:82px;height:82px}
-  .modal-panel{max-width:100%}
-}
-
 /* Floating Discord Button */
 .discord-floating {
   position: fixed;
@@ -175,4 +186,11 @@ body{
 .discord-floating:hover {
   transform: translateY(-4px) scale(1.05);
   opacity: 0.95;
+}
+
+/* small screens */
+@media (max-width:520px){
+  .avatar{width:82px;height:82px}
+  .modal-panel{max-width:100%}
+  .tagline{padding:0 12px}
 }
