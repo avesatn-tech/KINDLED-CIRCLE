@@ -9,13 +9,14 @@
 </head>
 <body>
   <div class="page-wrap">
+
     <header class="hero" role="banner">
-      <div class="container hero-inner">
+      <div class="hero-inner container">
         <div class="hero-left">
           <h1 class="site-title">Embers</h1>
           <p class="hero-lead">
             Role-played guides — ask the Ancient, the Knight, or the Seer.
-            Practical tips, lore, and more.
+            Practical tips, lore, and whispered secrets.
           </p>
 
           <div class="hero-cta">
@@ -26,19 +27,18 @@
           </div>
         </div>
 
-        <!-- RIGHT: logo sits here (the circled area in your reference) -->
         <div class="hero-right" aria-hidden="true">
           <div class="hero-logo-wrap">
-            <img class="hero-spark" src="img/ember.png" alt="Embers logo">
+            <img class="hero-spark" src="img/ember.png" alt="Embers emblem">
           </div>
         </div>
       </div>
 
-      <!-- ember particles canvas sits absolutely over hero -->
+      <!-- canvas for ember particles (subtle sparks) -->
       <canvas id="embers-canvas" class="embers-canvas" aria-hidden="true"></canvas>
     </header>
 
-    <main class="container">
+    <main class="container main-body">
       <section id="persona-cards" class="persona-cards">
         <article class="persona card" data-persona="ancient_dragon" tabindex="0">
           <div class="persona-top">
@@ -85,7 +85,7 @@
 
       <section id="chat" class="card">
         <div id="chat-placeholder" style="padding:1rem;color:var(--muted)">
-          <!-- conversation appears here -->
+          <!-- fallback / chat UI will be rendered here -->
         </div>
       </section>
     </main>
