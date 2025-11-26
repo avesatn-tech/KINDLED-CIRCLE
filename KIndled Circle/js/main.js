@@ -1,9 +1,5 @@
 // js/main.js
-// Frontend chat UI + API stub for /api/chat
-// Expects a backend route POST /api/chat that accepts:
-// { character: "seer"|"knight"|"dragon", message: "..." }
-// and returns JSON: { reply: "..." }
-
+// Vanilla front-end for Embers. Talks to /api/chat (Cloudflare Function).
 (() => {
   const modal = document.getElementById('chatModal');
   const chatTitle = document.getElementById('chatTitle');
@@ -13,15 +9,35 @@
   const messagesEl = document.getElementById('chatMessages');
   const chatForm = document.getElementById('chatForm');
   const chatInput = document.getElementById('chatInput');
+  const discordFloat = document.getElementById('discord-float');
+  const discordTop = document.getElementById('discord-top');
 
-  // Character metadata (images and short descriptors)
   const CHARACTERS = {
     seer: { name: 'Seer', avatar: 'img/seer.png', desc: 'Lorekeeper & advice on magic builds' },
     knight: { name: 'Knight', avatar: 'img/knight.png', desc: 'Practical tactics and weapon guides' },
     dragon: { name: 'Dragon', avatar: 'img/dragon.png', desc: 'Boss strategies and lore whispers' },
   };
 
-  // Local conversation store keyed by character
+  // load discord invite from /api/config if available (Cloudflare function can return it)
+  (async () => {
+    try {
+      const r = await fetch('/api/config');
+      if (!r.ok) return;
+      const cfg = await r.json();
+      if (cfg?.discordInvite) {
+        discordFloat.href = cfg.discordInvite;
+        discordTop.href = cfg.discordInvite;
+      } else {
+        // keep # if not set
+        discordFloat.href = '#';
+        discordTop.href = '#';
+      }
+    } catch (e) {
+      // ignore
+    }
+  })();
+
+  // Local storage helpers
   const storeKey = (id) => `embers_conv_${id}`;
   function loadHistory(id){
     try {
@@ -106,7 +122,7 @@
 
   // Send a message to backend API
   async function sendToApi(character, message) {
-    // Frontend sends request to your backend. Replace /api/chat with your real route if different.
+    // POST to serverless function
     const payload = { character, message };
     const resp = await fetch('/api/chat', {
       method: 'POST',
@@ -119,7 +135,6 @@
       throw new Error(`Server responded ${resp.status}: ${txt}`);
     }
     const data = await resp.json();
-    // Expecting { reply: "..." }
     if (typeof data.reply !== 'string') throw new Error('Invalid response from server');
     return data.reply;
   }
@@ -129,10 +144,8 @@
     ev.preventDefault();
     const message = chatInput.value.trim();
     if (!message || !currentCharacter) return;
-    // append user message
     appendMessage(message, 'user');
 
-    // save to history
     const hist = loadHistory(currentCharacter);
     hist.push({ who: 'user', text: message, ts: Date.now() });
     saveHistory(currentCharacter, hist);
@@ -142,16 +155,12 @@
     typingIndicator(true);
 
     try {
-      // Call API
       const reply = await sendToApi(currentCharacter, message);
-
-      // remove typing and show reply
       typingIndicator(false);
       appendMessage(reply, 'bot');
 
       hist.push({ who: 'bot', text: reply, ts: Date.now() });
       saveHistory(currentCharacter, hist);
-
     } catch(err) {
       typingIndicator(false);
       appendMessage('Error: ' + err.message, 'bot');
@@ -162,16 +171,13 @@
     }
   });
 
-  // keyboard shortcut to close with ESC
+  // ESC to close modal
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeChat();
   });
 
-  // Clear stale history helper (exposed for convenience; not used automatically)
+  // expose simple API for dev/debug
   window.Embers = {
-    clearHistoryFor(characterId){
-      localStorage.removeItem(storeKey(characterId));
-    }
+    clearHistoryFor(characterId){ localStorage.removeItem(storeKey(characterId)); }
   };
-
 })();
