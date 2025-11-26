@@ -146,3 +146,29 @@ body{
   .avatar{width:82px;height:82px}
   .modal-panel{max-width:100%}
 }
+
+/* Discord Button */
+.discord-button {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  border-radius:10px;
+  background:linear-gradient(180deg,#5865F2,#4352D9);
+  color:white;
+  font-weight:600;
+  text-decoration:none;
+  font-size:14px;
+  transition:transform .15s ease, opacity .15s ease;
+}
+
+.discord-button img {
+  width:20px;
+  height:20px;
+  object-fit:contain;
+}
+
+.discord-button:hover {
+  transform:translateY(-2px);
+  opacity:0.9;
+}
