@@ -3,100 +3,78 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Embers — Guides</title>
-
-  <link rel="stylesheet" href="css/main.css">
+  <title>Embers</title>
+  <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-  <div class="page-wrap">
 
-    <header class="hero" role="banner">
-      <div class="hero-inner container">
-        <div class="hero-left">
-          <h1 class="site-title">Embers</h1>
-          <p class="hero-lead">
-            Role-played guides — ask the Ancient, the Knight, or the Seer.
-            Practical tips, lore, and whispered secrets.
-          </p>
+<header class="topbar">
+  <div class="top-url">kindled-circle.pages.dev</div>
 
-          <div class="hero-cta">
-            <a class="btn ghost pulse" href="https://discord.gg/YOUR_PERMANENT_INVITE" target="_blank" rel="noopener noreferrer">
-              <img class="icon" src="img/discord.png" alt="" aria-hidden="true">
-              Join Kindle Circle
-            </a>
-          </div>
-        </div>
-
-        <div class="hero-right" aria-hidden="true">
-          <div class="hero-logo-wrap">
-            <img class="hero-spark" src="img/ember.png" alt="Embers emblem">
-          </div>
-        </div>
-      </div>
-
-      <!-- canvas for ember particles (subtle sparks) -->
-      <canvas id="embers-canvas" class="embers-canvas" aria-hidden="true"></canvas>
-    </header>
-
-    <main class="container main-body">
-      <section id="persona-cards" class="persona-cards">
-        <article class="persona card" data-persona="ancient_dragon" tabindex="0">
-          <div class="persona-top">
-            <div class="persona-icon"><img src="img/dragon.png" alt=""></div>
-            <h3>Ancient Dragon</h3>
-          </div>
-          <p class="persona-desc">Slow, poetic wisdom. If you want loreful guidance and evocative hints.</p>
-          <div class="card-actions">
-            <button class="btn small select-btn">Select</button>
-          </div>
-        </article>
-
-        <article class="persona card" data-persona="old_knight" tabindex="0">
-          <div class="persona-top">
-            <div class="persona-icon"><img src="img/knight.png" alt=""></div>
-            <h3>Old Knight</h3>
-          </div>
-          <p class="persona-desc">Direct and tactical — step-by-step combat and build advice.</p>
-          <div class="card-actions">
-            <button class="btn small select-btn">Select</button>
-          </div>
-        </article>
-
-        <article class="persona card" data-persona="mystic_seer" tabindex="0">
-          <div class="persona-top">
-            <div class="persona-icon"><img src="img/seer.png" alt=""></div>
-            <h3>Mystic Seer</h3>
-          </div>
-          <p class="persona-desc">Cryptic hints and exploration cues — for secret hunters.</p>
-          <div class="card-actions">
-            <button class="btn small select-btn">Select</button>
-          </div>
-        </article>
-      </section>
-
-      <hr class="hr-subtle">
-
-      <section id="pick-hint" class="card">
-        <div style="padding:1.25rem;color:var(--muted)">
-          <h3>Pick a persona to begin</h3>
-          <p>Click <strong>Select</strong> on any persona card and the conversation will open below.</p>
-        </div>
-      </section>
-
-      <section id="chat" class="card">
-        <div id="chat-placeholder" style="padding:1rem;color:var(--muted)">
-          <!-- fallback / chat UI will be rendered here -->
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="container">
-        <p>© Embers — Guides. Minimal, atmospheric, role-played responses.</p>
-      </div>
-    </footer>
+  <div class="logo-wrap">
+    <img src="img/ember.png" alt="Embers Logo" class="logo">
+    <h1>Embers</h1>
   </div>
 
-  <script type="module" src="js/main.js"></script>
+  <p class="subtitle">Role-played guides — choose your mentor and ask anything about any game.</p>
+
+  <button class="join-btn">
+    <img src="img/discord.png" alt="discord" class="discord-icon">
+    Join Kindle Circle
+  </button>
+</header>
+
+<main class="container">
+
+  <div class="cards">
+
+    <div class="card" data-id="dragon">
+      <img src="img/dragon.png" class="char-icon" alt="dragon">
+      <h2>Ancient Dragon</h2>
+      <p class="desc">Slow, poetic wisdom — loreful hints and high-fantasy guidance.</p>
+      <button class="select-btn">Select</button>
+    </div>
+
+    <div class="card" data-id="knight">
+      <img src="img/knight.png" class="char-icon" alt="knight">
+      <h2>Old Knight</h2>
+      <p class="desc">Direct and tactical — builds, combat steps, efficient progression.</p>
+      <button class="select-btn">Select</button>
+    </div>
+
+    <div class="card" data-id="seer">
+      <img src="img/seer.png" class="char-icon" alt="seer">
+      <h2>Mystic Seer</h2>
+      <p class="desc">Cryptic, insightful, strange paths and clever solutions.</p>
+      <button class="select-btn">Select</button>
+    </div>
+
+  </div>
+</main>
+
+<!-- CHAT MODAL -->
+<div id="chatModal" class="modal hidden">
+  <div class="modal-panel">
+
+    <header class="modal-header">
+      <img id="modalIcon" src="" class="modal-char-icon" alt="">
+      <div>
+        <h3 id="modalName">Character</h3>
+        <p id="modalHint" class="modal-hint"></p>
+      </div>
+      <button id="closeModal" class="close-modal">✕</button>
+    </header>
+
+    <div id="chatLog" class="chat-log"></div>
+
+    <form id="chatForm" class="chat-form">
+      <input id="userInput" placeholder="Ask your question..." autocomplete="off">
+      <button type="submit" id="sendBtn" class="send-btn">Send</button>
+    </form>
+
+  </div>
+</div>
+
+<script src="js/main.js"></script>
 </body>
 </html>
