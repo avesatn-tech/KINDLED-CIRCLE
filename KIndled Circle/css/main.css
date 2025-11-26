@@ -147,28 +147,32 @@ body{
   .modal-panel{max-width:100%}
 }
 
-/* Discord Button */
-.discord-button {
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 14px;
-  border-radius:10px;
-  background:linear-gradient(180deg,#5865F2,#4352D9);
-  color:white;
-  font-weight:600;
-  text-decoration:none;
-  font-size:14px;
-  transition:transform .15s ease, opacity .15s ease;
+/* Floating Discord Button */
+.discord-floating {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 56px;
+  height: 56px;
+  background: #5865F2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  cursor: pointer;
+  transition: transform .2s ease, opacity .2s ease;
+  z-index: 999;
 }
 
-.discord-button img {
-  width:20px;
-  height:20px;
-  object-fit:contain;
+.discord-floating img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 4px rgba(0,0,0,0.4));
 }
 
-.discord-button:hover {
-  transform:translateY(-2px);
-  opacity:0.9;
+.discord-floating:hover {
+  transform: translateY(-4px) scale(1.05);
+  opacity: 0.95;
 }
