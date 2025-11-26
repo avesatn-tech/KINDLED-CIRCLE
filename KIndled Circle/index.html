@@ -13,8 +13,16 @@
       <img src="img/ember.png" alt="Embers logo" class="logo" />
       <h1>Embers</h1>
     </div>
-    <p class="tagline">Pick a character. Ask anything about any game. They’ll answer.</p>
+
+    <!-- Discord Button -->
+    <a href="#" id="discord-btn" class="discord-button">
+      <img src="img/discord.png" alt="Discord" />
+      Join Discord
+    </a>
+
   </header>
+
+  <p class="tagline">Pick a character. Ask anything about any game. They’ll answer.</p>
 
   <main class="container">
     <section class="characters">
@@ -39,10 +47,6 @@
         <button class="select-btn" data-character="dragon">Select</button>
       </article>
     </section>
-
-    <section class="help">
-      <p>Want to chat with the characters using Discord? <img src="img/discord.png" alt="discord" class="inline-icon" /> Use your server webhook to forward messages — or use the built-in web chat.</p>
-    </section>
   </main>
 
   <!-- Chat modal -->
@@ -62,12 +66,12 @@
       <main id="chatMessages" class="messages" aria-live="polite"></main>
 
       <form id="chatForm" class="chat-form" autocomplete="off">
-        <input id="chatInput" type="text" name="message" placeholder="Ask anything... (try: 'Where is the hidden smith?')" required />
+        <input id="chatInput" type="text" name="message" placeholder="Ask anything..." required />
         <button type="submit" id="sendBtn">Send</button>
       </form>
 
       <footer class="modal-footer">
-        <small>Conversation stored locally. Use responsibly. Responses come from the ChatGPT API via your backend.</small>
+        <small>Conversation stored locally.</small>
       </footer>
     </div>
   </div>
