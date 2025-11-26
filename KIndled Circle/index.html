@@ -3,78 +3,75 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Embers</title>
+  <title>Embers — Ask a Game Character</title>
+  <link rel="icon" href="img/ember.png" />
   <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
+  <header class="site-header">
+    <div class="brand">
+      <img src="img/ember.png" alt="Embers logo" class="logo" />
+      <h1>Embers</h1>
+    </div>
+    <p class="tagline">Pick a character. Ask anything about any game. They’ll answer.</p>
+  </header>
 
-<header class="topbar">
-  <div class="top-url">kindled-circle.pages.dev</div>
+  <main class="container">
+    <section class="characters">
+      <article class="card" data-id="seer">
+        <img src="img/seer.png" alt="Seer avatar" class="avatar" />
+        <h2>Seer</h2>
+        <p class="role">Lorekeeper & advice on magic builds</p>
+        <button class="select-btn" data-character="seer">Select</button>
+      </article>
 
-  <div class="logo-wrap">
-    <img src="img/ember.png" alt="Embers Logo" class="logo">
-    <h1>Embers</h1>
+      <article class="card" data-id="knight">
+        <img src="img/knight.png" alt="Knight avatar" class="avatar" />
+        <h2>Knight</h2>
+        <p class="role">Practical tactics and weapon guides</p>
+        <button class="select-btn" data-character="knight">Select</button>
+      </article>
+
+      <article class="card" data-id="dragon">
+        <img src="img/dragon.png" alt="Dragon avatar" class="avatar" />
+        <h2>Dragon</h2>
+        <p class="role">Boss strategies and lore whispers</p>
+        <button class="select-btn" data-character="dragon">Select</button>
+      </article>
+    </section>
+
+    <section class="help">
+      <p>Want to chat with the characters using Discord? <img src="img/discord.png" alt="discord" class="inline-icon" /> Use your server webhook to forward messages — or use the built-in web chat.</p>
+    </section>
+  </main>
+
+  <!-- Chat modal -->
+  <div id="chatModal" class="modal hidden" aria-hidden="true" role="dialog" aria-labelledby="chatTitle">
+    <div class="modal-panel">
+      <header class="modal-header">
+        <div class="modal-title">
+          <img id="modalAvatar" src="img/ember.png" alt="" class="avatar small" />
+          <div>
+            <h3 id="chatTitle">Character</h3>
+            <small id="chatSubtitle">Asks answered by: ChatGPT</small>
+          </div>
+        </div>
+        <button id="closeModal" aria-label="Close chat">✕</button>
+      </header>
+
+      <main id="chatMessages" class="messages" aria-live="polite"></main>
+
+      <form id="chatForm" class="chat-form" autocomplete="off">
+        <input id="chatInput" type="text" name="message" placeholder="Ask anything... (try: 'Where is the hidden smith?')" required />
+        <button type="submit" id="sendBtn">Send</button>
+      </form>
+
+      <footer class="modal-footer">
+        <small>Conversation stored locally. Use responsibly. Responses come from the ChatGPT API via your backend.</small>
+      </footer>
+    </div>
   </div>
 
-  <p class="subtitle">Role-played guides — choose your mentor and ask anything about any game.</p>
-
-  <button class="join-btn">
-    <img src="img/discord.png" alt="discord" class="discord-icon">
-    Join Kindle Circle
-  </button>
-</header>
-
-<main class="container">
-
-  <div class="cards">
-
-    <div class="card" data-id="dragon">
-      <img src="img/dragon.png" class="char-icon" alt="dragon">
-      <h2>Ancient Dragon</h2>
-      <p class="desc">Slow, poetic wisdom — loreful hints and high-fantasy guidance.</p>
-      <button class="select-btn">Select</button>
-    </div>
-
-    <div class="card" data-id="knight">
-      <img src="img/knight.png" class="char-icon" alt="knight">
-      <h2>Old Knight</h2>
-      <p class="desc">Direct and tactical — builds, combat steps, efficient progression.</p>
-      <button class="select-btn">Select</button>
-    </div>
-
-    <div class="card" data-id="seer">
-      <img src="img/seer.png" class="char-icon" alt="seer">
-      <h2>Mystic Seer</h2>
-      <p class="desc">Cryptic, insightful, strange paths and clever solutions.</p>
-      <button class="select-btn">Select</button>
-    </div>
-
-  </div>
-</main>
-
-<!-- CHAT MODAL -->
-<div id="chatModal" class="modal hidden">
-  <div class="modal-panel">
-
-    <header class="modal-header">
-      <img id="modalIcon" src="" class="modal-char-icon" alt="">
-      <div>
-        <h3 id="modalName">Character</h3>
-        <p id="modalHint" class="modal-hint"></p>
-      </div>
-      <button id="closeModal" class="close-modal">✕</button>
-    </header>
-
-    <div id="chatLog" class="chat-log"></div>
-
-    <form id="chatForm" class="chat-form">
-      <input id="userInput" placeholder="Ask your question..." autocomplete="off">
-      <button type="submit" id="sendBtn" class="send-btn">Send</button>
-    </form>
-
-  </div>
-</div>
-
-<script src="js/main.js"></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>
