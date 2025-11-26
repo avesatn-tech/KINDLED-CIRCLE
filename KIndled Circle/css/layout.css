@@ -298,3 +298,49 @@ footer {
   text-align: center;
   padding: 0.5rem 0;
 }
+
+/* ===== button animations & emphasis ===== */
+
+/* subtle glowing pulse for hero CTA */
+.hero-cta .btn.ghost {
+  position: relative;
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+  will-change: transform, box-shadow;
+}
+
+.hero-cta .btn.ghost::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  pointer-events: none;
+  box-shadow: 0 0 0 rgba(230,100,30,0.0);
+  transition: box-shadow .35s ease;
+}
+
+.hero-cta .btn.ghost:hover::after {
+  box-shadow: 0 18px 60px rgba(230,100,30,0.18);
+}
+
+/* small breathing pulse (slow, subtle) */
+@keyframes ember-breathe {
+  0% { box-shadow: 0 8px 20px rgba(230,100,30,0.08); transform: translateY(0); }
+  50% { box-shadow: 0 20px 46px rgba(230,100,30,0.12); transform: translateY(-1px); }
+  100% { box-shadow: 0 8px 20px rgba(230,100,30,0.08); transform: translateY(0); }
+}
+.hero-cta .btn.ghost.pulse {
+  animation: ember-breathe 3.6s ease-in-out infinite;
+}
+
+/* button active/press micro animation */
+.btn:active { transform: translateY(1px) scale(.998); transition: transform .08s; }
+
+/* ensure select buttons have micro hover */
+.btn.small.select-btn { transition: transform .09s ease, box-shadow .12s ease; }
+.btn.small.select-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.28); }
+
+/* make select button more tap-friendly on mobile if desired */
+@media (max-width:720px) {
+  .card-actions .select-btn { min-width: 120px; padding: 10px 16px; }
+}
+
