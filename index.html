@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kindled Circle</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+  <header>
+    <h1 class="title">Kindled Circle</h1>
+    <p class="subtitle">Choose your guide</p>
+  </header>
+
+  <main>
+
+    <div class="characters">
+
+      <div class="char-card">
+        <img src="img/seer.png" class="char-img">
+        <h3>Seer</h3>
+        <button class="select-btn" data-character="seer">Select</button>
+      </div>
+
+      <div class="char-card">
+        <img src="img/knight.png" class="char-img">
+        <h3>Knight</h3>
+        <button class="select-btn" data-character="knight">Select</button>
+      </div>
+
+      <div class="char-card">
+        <img src="img/dragon.png" class="char-img">
+        <h3>Dragon</h3>
+        <button class="select-btn" data-character="dragon">Select</button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Chat Modal -->
+  <div id="chatModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img id="modalAvatar" class="avatar">
+        <div>
+          <h2 id="chatTitle"></h2>
+          <p id="chatSubtitle"></p>
+        </div>
+        <button id="closeModal">✖</button>
+      </div>
+
+      <div id="chatMessages" class="messages"></div>
+
+      <form id="chatForm" class="chat-input-box">
+        <input type="text" id="chatInput" placeholder="Ask anything..." required>
+        <button type="submit" class="send-btn">Send</button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- floating discord button -->
+  <a id="discord-float" href="#" class="discord-btn">
+    <img src="img/discord.png">
+  </a>
+
+<script src="js/main.js"></script>
+</body>
+</html>
