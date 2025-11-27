@@ -1,57 +1,133 @@
+// functions/api/chat.js (debug version)
+// Replaces production handler temporarily to return full OpenAI response for debugging.
+
 export async function onRequest(context) {
-  const cors = {
+  const CORS = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type"
+    "Access-Control-Allow-Headers": "Content-Type, Accept",
   };
 
   // Preflight
   if (context.request.method === "OPTIONS") {
-    return new Response("", { status: 204, headers: cors });
+    return new Response(null, { status: 204, headers: CORS });
   }
 
+  // Simple GET info
+  if (context.request.method === "GET") {
+    return new Response(JSON.stringify({
+      ok: true,
+      note: "This is debug endpoint. Use POST {character, message} to test.",
+      required_env: ["OPENAI_API_KEY"]
+    }), { status: 200, headers: { "Content-Type": "application/json", ...CORS }});
+  }
+
+  // Only POST expected for chat
   if (context.request.method !== "POST") {
-    return new Response("Method Not Allowed", { status: 405 });
-  }
-
-  const OPENAI_KEY = context.env.OPENAI_API_KEY;
-  if (!OPENAI_KEY) {
-    return new Response(JSON.stringify({ error: "No OPENAI_KEY" }), {
-      status: 500,
-      headers: cors
+    return new Response(JSON.stringify({ error: "Method not allowed" }), {
+      status: 405,
+      headers: { "Content-Type": "application/json", ...CORS }
     });
   }
 
-  const body = await context.request.json();
-  const { character, message } = body;
+  // Check API key
+  const OPENAI_KEY = context.env.OPENAI_API_KEY;
+  if (!OPENAI_KEY) {
+    return new Response(JSON.stringify({
+      error: "Missing OPENAI_API_KEY in environment variables",
+      hint: "Set OPENAI_API_KEY in Cloudflare Pages project settings"
+    }), { status: 500, headers: { "Content-Type": "application/json", ...CORS }});
+  }
 
+  // Parse body safely
+  let payload;
+  try {
+    payload = await context.request.json();
+  } catch (err) {
+    return new Response(JSON.stringify({ error: "Invalid JSON body", detail: String(err) }), {
+      status: 400,
+      headers: { "Content-Type": "application/json", ...CORS }
+    });
+  }
+
+  const { character, message } = payload || {};
+  if (!character || !message) {
+    return new Response(JSON.stringify({ error: "Both 'character' and 'message' are required in the POST body" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json", ...CORS }
+    });
+  }
+
+  // System prompts
   const SYSTEM = {
-    seer: "You are Seer, mystical and poetic.",
-    knight: "You are Knight, direct and tactical.",
-    dragon: "You are Dragon, ancient and wise."
+    seer: "You are Seer — poetic, careful with spoilers, game-lore oriented.",
+    knight: "You are Knight — blunt, tactical, concise.",
+    dragon: "You are Dragon — majestic, high-level strategies."
+  };
+  const systemPrompt = SYSTEM[character] || "You are a helpful assistant.";
+
+  // Build OpenAI request
+  const reqBody = {
+    model: context.env.OPENAI_MODEL || "gpt-4o-mini",
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: message }
+    ],
+    temperature: 0.7,
+    max_tokens: 800,
   };
 
-  const prompt = SYSTEM[character] || "You are a helpful assistant.";
+  // Send to OpenAI and return the raw json back for debugging
+  try {
+    const resp = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${OPENAI_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(reqBody)
+    });
 
-  const r = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${OPENAI_KEY}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: prompt },
-        { role: "user", content: message }
-      ]
-    })
-  });
+    const text = await resp.text();
+    let json;
+    try {
+      json = JSON.parse(text);
+    } catch (e) {
+      json = { raw_text: text };
+    }
 
-  const json = await r.json();
-  const reply = json.choices?.[0]?.message?.content || "No reply.";
+    // If OpenAI returned non-OK, propagate details
+    if (!resp.ok) {
+      return new Response(JSON.stringify({
+        ok: false,
+        status: resp.status,
+        statusText: resp.statusText,
+        error_detail: json
+      }), {
+        status: 502,
+        headers: { "Content-Type": "application/json", ...CORS }
+      });
+    }
 
-  return new Response(JSON.stringify({ reply }), {
-    headers: { "Content-Type": "application/json", ...cors }
-  });
+    // Return full OpenAI answer + convenience fields
+    const reply = json?.choices?.[0]?.message?.content ?? null;
+
+    return new Response(JSON.stringify({
+      ok: true,
+      used_model: reqBody.model,
+      reply_exists: reply !== null,
+      reply_preview: typeof reply === "string" ? (reply.length > 400 ? reply.slice(0,400) + "..." : reply) : reply,
+      raw: json
+    }), {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...CORS }
+    });
+
+  } catch (err) {
+    return new Response(JSON.stringify({
+      ok: false,
+      error: "Network or server error when calling OpenAI",
+      detail: String(err)
+    }), { status: 500, headers: { "Content-Type": "application/json", ...CORS }});
+  }
 }
